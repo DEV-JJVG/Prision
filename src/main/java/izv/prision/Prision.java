@@ -6,7 +6,7 @@ package izv.prision;
 
 /**
  *
- * @author Mañana
+ * @author Mañana y hugo
  */
 public class Prision {
 
