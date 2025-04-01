@@ -11,6 +11,6 @@ package izn.prision;
 public class Prision {
 
     public static void main(String[] args) {
-        System.out.println("aeorigvpiusbgstrj");
+        System.out.println("aeoriiusbgstrj");
     }
 }
