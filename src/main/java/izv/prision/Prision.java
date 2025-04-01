@@ -11,6 +11,6 @@ package izv.prision;
 public class Prision {
 
     public static void main(String[] args) {
-        System.out.println("Tetas Gordas!");
+        System.out.println("Tetas Gordas!!");
     }
 }
