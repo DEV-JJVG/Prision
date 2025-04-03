@@ -6,11 +6,11 @@ package izv.prision;
 
 /**
  *
- * @author Mañana y hugo
+ * @author JJ y Hugo
  */
 public class Prision {
 
     public static void main(String[] args) {
-        System.out.println("csgsahkufyaeiu");
+        System.out.println("Sexo.");
     }
 }
