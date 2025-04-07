@@ -57,6 +57,15 @@ public class Visit {
         this.relationship = relationship;
     }
 
+    public int getInmate_id() {
+        return inmate_id;
+    }
+
+    public void setInmate_id(int inmate_id) {
+        this.inmate_id = inmate_id;
+    }
+
+    
     @Override
     public String toString() {
         return "Visit{" + "visit_Id=" + visit_Id + ", visit_Date=" + visit_Date + ", inmate_id=" + inmate_id + ", visitor=" + visitor + ", relationship=" + relationship + '}';
