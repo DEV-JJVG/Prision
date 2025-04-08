@@ -4,6 +4,7 @@
  */
 package izv.prision;
 
+import Exception.InvalidAgeException;
 import java.util.Date;
 
 /**
@@ -16,7 +17,7 @@ public class Person {
     protected Date born_date;
     protected int id;
 
-    public Person(String name, Date born_date) {
+    public Person(String name, Date born_date) throws InvalidAgeException {
         this.name = name;
         this.born_date = born_date;
     }
@@ -34,8 +35,11 @@ public class Person {
         return born_date;
     }
 
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
+    public void setBorn_date(Date born_date, Date current_date) throws InvalidAgeException {
+        if (current_date.getYear() - born_date.getYear() > 0) {
+            this.born_date = born_date;
+        }
+        else throw new InvalidAgeException();
     }
 
     public int getId() {
