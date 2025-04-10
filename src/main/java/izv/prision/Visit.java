@@ -24,51 +24,68 @@ public class Visit {
         this.visitor = visitor;
         this.relationship = relationship;
     }
+    //
+    //
+    //
+    //
+    //getters
 
     public int getVisit_Id() {
         return visit_Id;
-    }
-
-    public void setVisit_Id(int visit_Id) {
-        this.visit_Id = visit_Id;
     }
 
     public Date getVisit_Date() {
         return visit_Date;
     }
 
-    public void setVisit_Date(Date visit_Date) {
-        this.visit_Date = visit_Date;
-    }
-
     public Person getVisitor() {
         return visitor;
-    }
-
-    public void setVisitor(Person visitor) {
-        this.visitor = visitor;
     }
 
     public String getRelationship() {
         return relationship;
     }
 
-    public void setRelationship(String relationship) {
-        this.relationship = relationship;
-    }
-
     public int getInmate_id() {
         return inmate_id;
+    }
+
+    //
+    //
+    //
+    //setters
+    public void setVisit_Id(int visit_Id) {
+        this.visit_Id = visit_Id;
+    }
+
+    public void setVisit_Date(Date visit_Date) {
+        this.visit_Date = visit_Date;
+    }
+
+    public void setVisitor(Person visitor) {
+        this.visitor = visitor;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
     }
 
     public void setInmate_id(int inmate_id) {
         this.inmate_id = inmate_id;
     }
-
     
+    //
+    //
+    //
+    //methods
+    
+    //
+    //
+    //
+    //toString    
     @Override
     public String toString() {
         return "Visit{" + "visit_Id=" + visit_Id + ", visit_Date=" + visit_Date + ", inmate_id=" + inmate_id + ", visitor=" + visitor + ", relationship=" + relationship + '}';
     }
-    
+
 }
