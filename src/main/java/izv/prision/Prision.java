@@ -80,12 +80,11 @@ public class Prision {
         format.setLenient(false);
         
         int id = input.nextInt();
-        Date fecha = new Date(125, 0, 1);
 
         
         try {
             Date born_date = format.parse(date);
-            Person person = new Person(name, born_date,fecha, id);
+            Person person = new Person(name, born_date, id);
             System.out.println(person);
         } catch (ParseException e) {
             System.out.println("date format invalid.");
@@ -94,7 +93,7 @@ public class Prision {
         }
         //in case it doesnt work I just placed a return with an error person 
         try{
-        Person pepe = new Person("error", new Date(125, 3, 10),fecha, 1);
+        Person pepe = new Person("error", new Date(125, 3, 10), 1);
             System.out.println(pepe);
         }catch (InvalidAgeException ex){
             System.out.println(ex.getMessage());
