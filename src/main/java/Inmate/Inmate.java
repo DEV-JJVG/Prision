@@ -4,6 +4,7 @@
  */
 package Inmate;
 
+import Exception.InvalidAgeException;
 import izv.prision.Person;
 import izv.prision.Visit;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class Inmate extends Person {
     boolean reoffending = false;
     ArrayList<Visit> visits;
 
-    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, ArrayList<Visit> visits, String name, Date born_date) {
-        super(name, born_date);
+    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, ArrayList<Visit> visits, String name, Date born_date, Date current_date) throws InvalidAgeException{
+        super(name, born_date, current_date);
         this.entrance_date = entrance_date;
         this.exit_date = exit_date;
         this.status = status;

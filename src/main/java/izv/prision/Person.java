@@ -17,42 +17,73 @@ public class Person {
     protected Date born_date;
     protected int id;
 
-    public Person(String name, Date born_date) throws InvalidAgeException {
-        this.name = name;
-        this.born_date = born_date;
+    public Person(String name, Date born_date, Date current_date) throws InvalidAgeException {
+        setName(name);
+        setBorn_date(born_date, current_date);
     }
 
+    
+    //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
+    //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
+    public Person(String name, Date born_date, Date current_date, int id) throws InvalidAgeException {
+        setName(name);
+        setBorn_date(born_date, current_date);
+        this.id = id;
+    }
+
+    
+
+    //
+    //
+    //
+    //getters
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        name.toUpperCase();
-        this.name = name;
     }
 
     public Date getBorn_date() {
         return born_date;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    //
+    //
+    //
+    //setters
+    public void setName(String name) {
+        name.toUpperCase();
+        this.name = name;
+    }
+
     public void setBorn_date(Date born_date, Date current_date) throws InvalidAgeException {
         if (current_date.getYear() - born_date.getYear() > 0) {
             this.born_date = born_date;
+        } else {
+            throw new InvalidAgeException();
         }
-        else throw new InvalidAgeException();
-    }
-
-    public int getId() {
-        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    //
+    //
+    //
+    //methods
+    
+    //
+    //
+    //
+    //toString
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", born_date=" + born_date + ", id=" + id + '}';
+        return "Person named " + getName() + " born in " + getBorn_date()
+                + " with the id: " + getId();
     }
 
 }
+
