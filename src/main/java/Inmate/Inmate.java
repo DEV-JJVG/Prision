@@ -18,13 +18,14 @@ public class Inmate extends Person {
 
     protected Date entrance_date;
     protected Date exit_date;
+    //true means he is currently being held
     protected boolean status;
     protected String felony;
     boolean reoffending = false;
     ArrayList<Visit> visits;
 
     public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, ArrayList<Visit> visits, String name, Date born_date, Date current_date) throws InvalidAgeException {
-        super(name, born_date, current_date);
+        super(name, born_date);
         this.entrance_date = entrance_date;
         this.exit_date = exit_date;
         this.status = status;
@@ -60,18 +61,6 @@ public class Inmate extends Person {
         return visits;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Date getBorn_date() {
-        return born_date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
     //
     //
     //
@@ -100,34 +89,43 @@ public class Inmate extends Person {
         this.visits = visits;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     //
     //
     //
     //methods
-    
     //
     //
     //
     //toString
     @Override
     public String toString() {
-        //Terminar toString de las visitas
-        for (Visit visit : visits) {
-        }
-        return super.toString() + "Entrance date: " + entrance_date + "Exit date: " + exit_date + "Status: " + status + "Felony: " + felony + "Visits: ";
+        String phrase = "";
+        phrase += "Inmate called " + getName() + " witch ID is " + getId() + "of age " + getAge()
+                + "\nIt was introduced in " + getEntrance_date();
 
+        if (isReoffending()) {
+            phrase += "\nIt is a reoffending, ";
+        } else {
+            phrase += "\nIt is not a reoffending, ";
+        }
+
+        if (isStatus()) {
+            phrase += "it is currently being held and he will be release " + getExit_date();
+        } else {
+            phrase += "it is not currently being held and was realised " + getExit_date();
+        }
+
+        phrase += "\nIt was sentences for:\n" + getFelony()+ "\n and it has been visited " + getVisits().size() + " times by:";
+
+ 
+        if (getVisits().size() > 0) {
+            for (Visit visit : getVisits()) {
+                phrase += "\n" + visit.getVisitor().getName();
+            }
+        }else{
+            phrase += "no one";
+        }
+        return phrase;
     }
 
 }
