@@ -4,6 +4,7 @@
  */
 package izv.prision;
 
+import Exception.InvalidAgeException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -57,7 +58,7 @@ public class Prision {
     //no prtections from erros, they will only be used to test the obgets
     //and are only meantto be used by the programer
     //the will be call manual to make clear what they do, other similar funtions
-    //meants for the user will be call "user______" and will be put in the section above
+    //meants for the user will be call "user______" and will be put in the section above.
     public static Cell manualCellcreation() {
         System.out.println("int cellID, Integer cellNumber, String location, Integer CellCapacity");
         int cellID = input.nextInt();
@@ -70,7 +71,7 @@ public class Prision {
         return cell;
     }
 
-    public static Person manualPersonCreator() {
+    public static void manualPersonCreator() {
         System.out.println("String name, Date born_date (dd/MM/yyyy), int id");
         String name = input.nextLine();
         
@@ -79,16 +80,26 @@ public class Prision {
         format.setLenient(false);
         
         int id = input.nextInt();
+        Date fecha = new Date(125, 0, 1);
+
         
         try {
             Date born_date = format.parse(date);
-            Person person = new Person(name, born_date, id);
-            return person;
+            Person person = new Person(name, born_date,fecha, id);
+            System.out.println(person);
         } catch (ParseException e) {
             System.out.println("date format invalid.");
+        } catch (InvalidAgeException ex){
+            System.out.println(ex.getMessage());
         }
         //in case it doesnt work I just placed a return with an error person 
-        return new Person("error", new Date(125, 3, 10), 1);
+        try{
+        Person pepe = new Person("error", new Date(125, 3, 10),fecha, 1);
+            System.out.println(pepe);
+        }catch (InvalidAgeException ex){
+            System.out.println(ex.getMessage());
+        }
+        
     }
 
     /*

@@ -4,6 +4,7 @@
  */
 package izv.prision;
 
+import Exception.InvalidAgeException;
 import java.util.Date;
 
 /**
@@ -16,20 +17,20 @@ public class Person {
     protected Date born_date;
     protected int id;
 
-    public Person(String name, Date born_date) {
+    public Person(String name, Date born_date, Date current_date) throws InvalidAgeException {
         setName(name);
-        setBorn_date(born_date);
+        setBorn_date(born_date, current_date);
     }
 
     
     //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
     //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
-    public Person(String name, Date born_date, int id) {
+    public Person(String name, Date born_date, Date current_date, int id) throws InvalidAgeException {
         setName(name);
-        setBorn_date(born_date);
+        setBorn_date(born_date, current_date);
         this.id = id;
     }
-    
+
     
 
     //
@@ -57,8 +58,12 @@ public class Person {
         this.name = name;
     }
 
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
+    public void setBorn_date(Date born_date, Date current_date) throws InvalidAgeException {
+        if (current_date.getYear() - born_date.getYear() > 0) {
+            this.born_date = born_date;
+        } else {
+            throw new InvalidAgeException();
+        }
     }
 
     public void setId(int id) {
@@ -76,8 +81,9 @@ public class Person {
     //toString
     @Override
     public String toString() {
-        return "Person named " + getName() + " born in " +  getBorn_date() + 
-                " with the id: " + getId();
+        return "Person named " + getName() + " born in " + getBorn_date()
+                + " with the id: " + getId();
     }
 
 }
+
