@@ -19,7 +19,7 @@ public class Prision {
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println(manualPersonCreator());
+        
     }
 
     /*
