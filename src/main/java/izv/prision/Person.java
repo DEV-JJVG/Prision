@@ -17,38 +17,67 @@ public class Person {
     protected int id;
 
     public Person(String name, Date born_date) {
-        this.name = name;
-        this.born_date = born_date;
+        setName(name);
+        setBorn_date(born_date);
     }
 
+    
+    //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
+    //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
+    public Person(String name, Date born_date, int id) {
+        setName(name);
+        setBorn_date(born_date);
+        this.id = id;
+    }
+    
+    
+
+    //
+    //
+    //
+    //getters
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        name.toUpperCase();
-        this.name = name;
     }
 
     public Date getBorn_date() {
         return born_date;
     }
 
-    public void setBorn_date(Date born_date) {
-        this.born_date = born_date;
-    }
-
     public int getId() {
         return id;
+    }
+
+    //
+    //
+    //
+    //setters
+    public void setName(String name) {
+        name.toUpperCase();
+        this.name = name;
+    }
+
+    public void setBorn_date(Date born_date) {
+        this.born_date = born_date;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    //
+    //
+    //
+    //methods
+    
+    //
+    //
+    //
+    //toString
     @Override
     public String toString() {
-        return "Person{" + "name=" + name + ", born_date=" + born_date + ", id=" + id + '}';
+        return "Person named " + getName() + " born in " +  getBorn_date() + 
+                " with the id: " + getId();
     }
 
 }
