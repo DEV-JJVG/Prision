@@ -14,13 +14,11 @@ public class Visit {
 
     private int visit_Id;
     private Date visit_Date;
-    private int inmate_id;
     private Person visitor;
     private String relationship;
 
     public Visit(Date visit_Date, int inmate_id, Person visitor, String relationship) {
         this.visit_Date = visit_Date;
-        this.inmate_id = inmate_id;
         this.visitor = visitor;
         this.relationship = relationship;
     }
@@ -46,9 +44,6 @@ public class Visit {
         return relationship;
     }
 
-    public int getInmate_id() {
-        return inmate_id;
-    }
 
     //
     //
@@ -70,9 +65,6 @@ public class Visit {
         this.relationship = relationship;
     }
 
-    public void setInmate_id(int inmate_id) {
-        this.inmate_id = inmate_id;
-    }
     
     //
     //
@@ -83,9 +75,12 @@ public class Visit {
     //
     //
     //toString    
+
     @Override
     public String toString() {
-        return "Visit{" + "visit_Id=" + visit_Id + ", visit_Date=" + visit_Date + ", inmate_id=" + inmate_id + ", visitor=" + visitor + ", relationship=" + relationship + '}';
+        return "the visit was made in " + getVisit_Date() + " its id is " + getVisit_Id() + 
+                ", the visitor was " + getVisitor().getName() + " and their relationship is:\n" + getRelationship();
     }
+    
 
 }
