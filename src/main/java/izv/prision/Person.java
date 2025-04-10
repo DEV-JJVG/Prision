@@ -12,22 +12,21 @@ import java.util.Date;
  * @author Hugo
  */
 public class Person {
-
     protected String name;
     protected Date born_date;
     protected int id;
 
-    public Person(String name, Date born_date, Date current_date) throws InvalidAgeException {
+    public Person(String name, Date born_date) throws InvalidAgeException {
         setName(name);
-        setBorn_date(born_date, current_date);
+        setBorn_date(born_date);
     }
 
     
     //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
     //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
-    public Person(String name, Date born_date, Date current_date, int id) throws InvalidAgeException {
+    public Person(String name, Date born_date, int id) throws InvalidAgeException {
         setName(name);
-        setBorn_date(born_date, current_date);
+        setBorn_date(born_date);
         this.id = id;
     }
 
@@ -48,6 +47,10 @@ public class Person {
     public int getId() {
         return id;
     }
+    
+    public int getAge(){
+        return VirtualTime.getVitualGlobalDate().getYear() - born_date.getYear();
+    }
 
     //
     //
@@ -58,8 +61,8 @@ public class Person {
         this.name = name;
     }
 
-    public void setBorn_date(Date born_date, Date current_date) throws InvalidAgeException {
-        if (current_date.getYear() - born_date.getYear() > 0) {
+    public void setBorn_date(Date born_date) throws InvalidAgeException {
+        if (VirtualTime.getVitualGlobalDate().getYear() - born_date.getYear() > 0) {
             this.born_date = born_date;
         } else {
             throw new InvalidAgeException();
