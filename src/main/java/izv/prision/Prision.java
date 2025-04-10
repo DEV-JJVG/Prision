@@ -4,6 +4,9 @@
  */
 package izv.prision;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -15,7 +18,7 @@ public class Prision {
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        manualCellcreation();
+        System.out.println(manualPersonCreator());
     }
 
     /*
@@ -59,12 +62,33 @@ public class Prision {
         System.out.println("int cellID, Integer cellNumber, String location, Integer CellCapacity");
         int cellID = input.nextInt();
         int cellNumber = input.nextInt();
-        input.nextLine(); 
+        input.nextLine();
         String location = input.nextLine();
         int cellCapacity = input.nextInt();
         Cell cell = new Cell(cellID, cellNumber, location, cellCapacity);
         System.out.println(cell);
         return cell;
+    }
+
+    public static Person manualPersonCreator() {
+        System.out.println("String name, Date born_date (dd/MM/yyyy), int id");
+        String name = input.nextLine();
+        
+        String date = input.nextLine();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        
+        int id = input.nextInt();
+        
+        try {
+            Date born_date = format.parse(date);
+            Person person = new Person(name, born_date, id);
+            return person;
+        } catch (ParseException e) {
+            System.out.println("date format invalid.");
+        }
+        //in case it doesnt work I just placed a return with an error person 
+        return new Person("error", new Date(125, 3, 10), 1);
     }
 
     /*
