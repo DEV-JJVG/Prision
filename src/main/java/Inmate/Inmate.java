@@ -33,6 +33,20 @@ public class Inmate extends Person {
         this.visits = visits;
     }
 
+    
+    //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
+    //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
+    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, ArrayList<Visit> visits, String name, Date born_date, int id) throws InvalidAgeException {
+        super(name, born_date, id);
+        this.entrance_date = entrance_date;
+        this.exit_date = exit_date;
+        this.status = status;
+        this.felony = felony;
+        this.visits = visits;
+    }
+    
+    
+
     //
     //
     //
@@ -59,6 +73,10 @@ public class Inmate extends Person {
 
     public ArrayList<Visit> getVisits() {
         return visits;
+    }
+    
+    public int getTimeInPrison(){
+        return getExit_date().getYear() - getEntrance_date().getYear();
     }
 
     //
@@ -115,7 +133,8 @@ public class Inmate extends Person {
             phrase += "it is not currently being held and was realised " + getExit_date();
         }
 
-        phrase += "\nIt was sentences for:\n" + getFelony()+ "\n and it has been visited " + getVisits().size() + " times by:";
+        phrase += "(Time in prison: " + getTimeInPrison() + ")\nIt was sentences for:\n" 
+                + getFelony()+ "\n and it has been visited " + getVisits().size() + " times by:";
 
  
         if (getVisits().size() > 0) {
