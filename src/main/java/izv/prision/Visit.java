@@ -18,10 +18,21 @@ public class Visit {
     private String relationship;
 
     public Visit(Date visit_Date, int inmate_id, Person visitor, String relationship) {
-        this.visit_Date = visit_Date;
-        this.visitor = visitor;
-        this.relationship = relationship;
+        setVisit_Date(visit_Date);
+        setVisitor(visitor);
+        setRelationship(relationship);
     }
+
+    //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
+    //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
+    public Visit(int visit_Id, Date visit_Date, Person visitor, String relationship) {
+        this.visit_Id = visit_Id;
+        setVisit_Date(visit_Date);
+        setVisitor(visitor);
+        setRelationship(relationship);
+    }
+    
+    
     //
     //
     //
@@ -49,9 +60,6 @@ public class Visit {
     //
     //
     //setters
-    public void setVisit_Id(int visit_Id) {
-        this.visit_Id = visit_Id;
-    }
 
     public void setVisit_Date(Date visit_Date) {
         this.visit_Date = visit_Date;
