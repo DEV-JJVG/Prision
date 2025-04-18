@@ -11,6 +11,8 @@ import java.util.Date;
  * @author Hugo
  */
 public class VirtualTime {
+    
+    //this class will mesure the global time of the program,
     protected static Date vitualGlobalDate = new Date(125, 0, 1);
 
     public VirtualTime() {

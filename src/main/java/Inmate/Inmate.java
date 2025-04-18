@@ -24,28 +24,28 @@ public class Inmate extends Person {
     boolean reoffending = false;
     ArrayList<Visit> visits;
 
-    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, ArrayList<Visit> visits, String name, Date born_date, Date current_date) throws InvalidAgeException {
+    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony,
+            ArrayList<Visit> visits, String name, Date born_date) throws InvalidAgeException {
         super(name, born_date);
-        this.entrance_date = entrance_date;
-        this.exit_date = exit_date;
-        this.status = status;
-        this.felony = felony;
-        this.visits = visits;
+        setEntrance_date(entrance_date);
+        setExit_date(exit_date);
+        setStatus(status);
+        setFelony(felony);
+        setVisits(visits);
     }
 
-    
     //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
     //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
-    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, ArrayList<Visit> visits, String name, Date born_date, int id) throws InvalidAgeException {
+    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, boolean reoffending,
+            ArrayList<Visit> visits, String name, Date born_date, int id) throws InvalidAgeException {
         super(name, born_date, id);
-        this.entrance_date = entrance_date;
-        this.exit_date = exit_date;
-        this.status = status;
-        this.felony = felony;
-        this.visits = visits;
+        setEntrance_date(entrance_date);
+        setExit_date(exit_date);
+        setStatus(status);
+        setFelony(felony);
+        setReoffending(reoffending);
+        setVisits(visits);
     }
-    
-    
 
     //
     //
@@ -74,8 +74,8 @@ public class Inmate extends Person {
     public ArrayList<Visit> getVisits() {
         return visits;
     }
-    
-    public int getTimeInPrison(){
+
+    public int getTimeInPrison() {
         return getExit_date().getYear() - getEntrance_date().getYear();
     }
 
@@ -83,12 +83,21 @@ public class Inmate extends Person {
     //
     //
     //setters
-    public void setEntrance_date(Date entrance_date) {
-        this.entrance_date = entrance_date;
+    public void setEntrance_date(Date entrance_date) throws InvalidAgeException {
+        if (entrance_date.getYear() - born_date.getYear() > 16) {
+            this.entrance_date = entrance_date;
+        } else {
+            throw new InvalidAgeException("Error, it was sent to prison while been a minor or before been born");
+        }
+
     }
 
-    public void setExit_date(Date exit_date) {
-        this.exit_date = exit_date;
+    public void setExit_date(Date exit_date) throws InvalidAgeException {
+        if (exit_date.getTime() > entrance_date.getTime()) {
+            this.exit_date = exit_date;
+        } else {
+            throw new InvalidAgeException("Error, it was sent to get out of prison before he got in");
+        }
     }
 
     public void setStatus(boolean status) {
@@ -96,7 +105,11 @@ public class Inmate extends Person {
     }
 
     public void setFelony(String felony) {
-        this.felony = felony;
+        if (!felony.isBlank()) {
+            this.felony = felony;
+        } else {
+            this.felony = "it did something very bad";
+        }
     }
 
     public void setReoffending(boolean reoffending) {
@@ -118,7 +131,7 @@ public class Inmate extends Person {
     @Override
     public String toString() {
         String phrase = "";
-        phrase += "Inmate called " + getName() + " witch ID is " + getId() + "of age " + getAge()
+        phrase += "Inmate called " + getName() + " witch ID is " + getId() + " of age " + getAge()
                 + "\nIt was introduced in " + getEntrance_date();
 
         if (isReoffending()) {
@@ -133,15 +146,14 @@ public class Inmate extends Person {
             phrase += "it is not currently being held and was realised " + getExit_date();
         }
 
-        phrase += "(Time in prison: " + getTimeInPrison() + ")\nIt was sentences for:\n" 
-                + getFelony()+ "\n and it has been visited " + getVisits().size() + " times by:";
+        phrase += "(Time in prison: " + getTimeInPrison() + ")\nIt was sentences for:\n"
+                + getFelony() + "\n and it has been visited " + getVisits().size() + " times by:";
 
- 
         if (getVisits().size() > 0) {
             for (Visit visit : getVisits()) {
                 phrase += "\n" + visit.getVisitor().getName();
             }
-        }else{
+        } else {
             phrase += "no one";
         }
         return phrase;
