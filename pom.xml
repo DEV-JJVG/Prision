@@ -7,16 +7,27 @@
     <packaging>jar</packaging>
     <repositories>
         <repository>
-            <id>unknown-jars-temp-repo</id>
-            <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
-            <url>file:${project.basedir}/lib</url>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
+
     <dependencies>
         <dependency>
             <groupId>unknown.binary</groupId>
             <artifactId>RojeruSan.full</artifactId>
             <version>SNAPSHOT</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
         </dependency>
     </dependencies>
     <properties>
@@ -25,4 +36,5 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>izv.prision.Prision</exec.mainClass>
     </properties>
+    
 </project>
