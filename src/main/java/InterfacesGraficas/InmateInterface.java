@@ -4,6 +4,13 @@
  */
 package InterfacesGraficas;
 
+import static ConectionDB.ConectionDB.DatabaseConnection.connect;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author JJ y Hugo
@@ -194,11 +201,56 @@ public class InmateInterface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNameActionPerformed
-        
-    }//GEN-LAST:event_addNameActionPerformed
 
+    }//GEN-LAST:event_addNameActionPerformed
+    public static Connection connect() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/prison"; // Cambia esto a tu URL de base de datos
+        String user = "root"; // Cambia esto a tu usuario
+        String password = ""; // Cambia esto a tu contraseña
+
+        return DriverManager.getConnection(url, user, password);
+    }
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        
+        // Obtener los valores de la interfaz gráfica
+        //Pendiente de insertar las fechas con este video para el RSCalendar: https://www.youtube.com/watch?v=FcAnkj1-j7s&t=9s
+        String name = addName.getText();
+        String bornDate = bornDateCalendar.getDatoFecha().toString(); // Fecha de nacimiento
+        String entranceDate = entranceDateCalendar.getDatoFecha().toString(); // Fecha de entrada
+        String exitDate = exitDateCalendar.getDatoFecha().toString(); // Fecha de salida
+        String status = (String) estatusComboBox.getSelectedItem(); // Estado (Active/Free)
+        String crime = jTextArea1.getText(); // Descripción del crimen
+
+        // Comprobar que todos los campos son válidos
+        if (name.isEmpty() || bornDate.isEmpty() || entranceDate.isEmpty() || exitDate.isEmpty() || crime.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Salir si algún campo está vacío
+        }
+
+        // Sentencia SQL para insertar los datos en la base de datos
+        String sql = "INSERT INTO inmates (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            // Establecer los parámetros de la consulta
+            stmt.setString(1, name); // Nombre
+            stmt.setString(2, bornDate); // Fecha de nacimiento
+            stmt.setString(3, entranceDate); // Fecha de entrada
+            stmt.setString(4, exitDate); // Fecha de salida
+            stmt.setString(5, status); // Estado
+            stmt.setString(6, crime); // Descripción del crimen
+
+            // Ejecutar la consulta
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Inmate inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            // Manejo de errores de base de datos
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botonEnviarActionPerformed
 
     /**
