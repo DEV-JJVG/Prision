@@ -83,11 +83,11 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="rSCalendar1" min="-2" max="-2" attributes="0"/>
+                          <Component id="bornDateCalendar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="215" max="32767" attributes="0"/>
-                          <Component id="rSCalendar3" min="-2" max="-2" attributes="0"/>
+                          <Component id="entranceDateCalendar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                          <Component id="rSCalendar2" min="-2" max="-2" attributes="0"/>
+                          <Component id="exitDateCalendar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -120,11 +120,11 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="rSCalendar2" min="-2" max="-2" attributes="0"/>
-                              <Component id="rSCalendar1" min="-2" max="-2" attributes="0"/>
+                              <Component id="exitDateCalendar" min="-2" max="-2" attributes="0"/>
+                              <Component id="bornDateCalendar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="rSCalendar3" min="-2" max="-2" attributes="0"/>
+                      <Component id="entranceDateCalendar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -245,11 +245,11 @@
             <Property name="text" type="java.lang.String" value="Inmate creation formulary"/>
           </Properties>
         </Component>
-        <Component class="rojerusan.RSCalendar" name="rSCalendar1">
+        <Component class="rojerusan.RSCalendar" name="bornDateCalendar">
         </Component>
-        <Component class="rojerusan.RSCalendar" name="rSCalendar2">
+        <Component class="rojerusan.RSCalendar" name="exitDateCalendar">
         </Component>
-        <Component class="rojerusan.RSCalendar" name="rSCalendar3">
+        <Component class="rojerusan.RSCalendar" name="entranceDateCalendar">
         </Component>
         <Component class="javax.swing.JButton" name="botonEnviar">
           <Properties>
