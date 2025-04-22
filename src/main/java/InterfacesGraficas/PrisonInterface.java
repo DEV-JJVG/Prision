@@ -29,9 +29,6 @@ public class PrisonInterface extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         title = new javax.swing.JLabel();
-        rSCalendar1 = new rojerusan.RSCalendar();
-        rSCalendar2 = new rojerusan.RSCalendar();
-        rSCalendar3 = new rojerusan.RSCalendar();
         botonEnviar = new javax.swing.JButton();
         nameLabel = new javax.swing.JLabel();
         addName = new javax.swing.JTextField();
@@ -95,7 +92,6 @@ public class PrisonInterface extends javax.swing.JFrame {
         bornDateLabel3.setText("Status");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1604, 782));
 
         prisonCapacity.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         prisonCapacity.setText("Capacity");
@@ -279,9 +275,6 @@ public class PrisonInterface extends javax.swing.JFrame {
     private javax.swing.JLabel prisonLocation1;
     private javax.swing.JLabel prisonName1;
     private javax.swing.JLabel prisonName2;
-    private rojerusan.RSCalendar rSCalendar1;
-    private rojerusan.RSCalendar rSCalendar2;
-    private rojerusan.RSCalendar rSCalendar3;
     private javax.swing.JLabel title;
     private javax.swing.JLabel title1;
     // End of variables declaration//GEN-END:variables
