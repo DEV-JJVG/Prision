@@ -19,15 +19,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>RojeruSan.full</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
         </dependency>
     </dependencies>
     <properties>
