@@ -5,6 +5,7 @@
 package InterfacesGraficas;
 
 import static ConectionDB.ConectionDB.DatabaseConnection.connect;
+import com.toedter.calendar.JCalendar;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,6 +23,9 @@ public class InmateInterface extends javax.swing.JFrame {
      */
     public InmateInterface() {
         initComponents();
+        JCalendar calendario = new JCalendar();
+        calendario.setBounds(50, 50, 200, 200); // Establecer tamaño y posición
+        panel.add(calendario);  // Agregarlo al panel
     }
 
     /**
@@ -45,9 +49,6 @@ public class InmateInterface extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         title = new javax.swing.JLabel();
-        bornDateCalendar = new rojerusan.RSCalendar();
-        exitDateCalendar = new rojerusan.RSCalendar();
-        entranceDateCalendar = new rojerusan.RSCalendar();
         botonEnviar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -132,14 +133,7 @@ public class InmateInterface extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(111, 111, 111))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                        .addComponent(bornDateCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
-                        .addComponent(entranceDateCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(143, 143, 143)
-                        .addComponent(exitDateCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141))))
+                                .addGap(111, 111, 111))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(title)
@@ -155,19 +149,12 @@ public class InmateInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(entranceDate, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(exitDate)
-                                .addComponent(bornDateLabel1)))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(exitDateCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bornDateCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(entranceDateCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(entranceDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(exitDate)
+                        .addComponent(bornDateLabel1)))
+                .addGap(53, 53, 53)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
                         .addComponent(bornDateLabel3)
@@ -214,17 +201,8 @@ public class InmateInterface extends javax.swing.JFrame {
         // Obtener los valores de la interfaz gráfica
         //Pendiente de insertar las fechas con este video para el RSCalendar: https://www.youtube.com/watch?v=FcAnkj1-j7s&t=9s
         String name = addName.getText();
-        String bornDate = bornDateCalendar.getDatoFecha().toString(); // Fecha de nacimiento
-        String entranceDate = entranceDateCalendar.getDatoFecha().toString(); // Fecha de entrada
-        String exitDate = exitDateCalendar.getDatoFecha().toString(); // Fecha de salida
         String status = (String) estatusComboBox.getSelectedItem(); // Estado (Active/Free)
         String crime = jTextArea1.getText(); // Descripción del crimen
-
-        // Comprobar que todos los campos son válidos
-        if (name.isEmpty() || bornDate.isEmpty() || entranceDate.isEmpty() || exitDate.isEmpty() || crime.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir si algún campo está vacío
-        }
 
         // Sentencia SQL para insertar los datos en la base de datos
         String sql = "INSERT INTO inmates (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
@@ -232,9 +210,6 @@ public class InmateInterface extends javax.swing.JFrame {
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             // Establecer los parámetros de la consulta
             stmt.setString(1, name); // Nombre
-            stmt.setString(2, bornDate); // Fecha de nacimiento
-            stmt.setString(3, entranceDate); // Fecha de entrada
-            stmt.setString(4, exitDate); // Fecha de salida
             stmt.setString(5, status); // Estado
             stmt.setString(6, crime); // Descripción del crimen
 
@@ -290,16 +265,13 @@ public class InmateInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addName;
-    private rojerusan.RSCalendar bornDateCalendar;
     private javax.swing.JLabel bornDateLabel1;
     private javax.swing.JLabel bornDateLabel2;
     private javax.swing.JLabel bornDateLabel3;
     private javax.swing.JButton botonEnviar;
     private javax.swing.JLabel entranceDate;
-    private rojerusan.RSCalendar entranceDateCalendar;
     private javax.swing.JComboBox<String> estatusComboBox;
     private javax.swing.JLabel exitDate;
-    private rojerusan.RSCalendar exitDateCalendar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel nameLabel;

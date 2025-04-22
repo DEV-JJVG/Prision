@@ -26,12 +26,6 @@
         <Property name="text" type="java.lang.String" value="Inmate creation formulary"/>
       </Properties>
     </Component>
-    <Component class="rojerusan.RSCalendar" name="rSCalendar1">
-    </Component>
-    <Component class="rojerusan.RSCalendar" name="rSCalendar2">
-    </Component>
-    <Component class="rojerusan.RSCalendar" name="rSCalendar3">
-    </Component>
     <Component class="javax.swing.JButton" name="botonEnviar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enviar"/>
@@ -110,9 +104,6 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1604, 782]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

@@ -82,14 +82,6 @@
                               </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="bornDateCalendar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="215" max="32767" attributes="0"/>
-                          <Component id="entranceDateCalendar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="143" max="-2" attributes="0"/>
-                          <Component id="exitDateCalendar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -109,24 +101,14 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="addName" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="entranceDate" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="exitDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="bornDateLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="exitDateCalendar" min="-2" max="-2" attributes="0"/>
-                              <Component id="bornDateCalendar" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="entranceDate" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="exitDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="bornDateLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="entranceDateCalendar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="bornDateLabel3" min="-2" max="-2" attributes="0"/>
@@ -244,12 +226,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Inmate creation formulary"/>
           </Properties>
-        </Component>
-        <Component class="rojerusan.RSCalendar" name="bornDateCalendar">
-        </Component>
-        <Component class="rojerusan.RSCalendar" name="exitDateCalendar">
-        </Component>
-        <Component class="rojerusan.RSCalendar" name="entranceDateCalendar">
         </Component>
         <Component class="javax.swing.JButton" name="botonEnviar">
           <Properties>
