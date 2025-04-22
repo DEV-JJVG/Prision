@@ -18,14 +18,15 @@ import javax.swing.JOptionPane;
  */
 public class InmateInterface extends javax.swing.JFrame {
 
+    private JCalendar bornDateCalendar;
+    private JCalendar entranceDateCalendar;
+    private JCalendar exitDateCalendar;
+
     /**
      * Creates new form InmateInterface
      */
     public InmateInterface() {
         initComponents();
-        JCalendar calendario = new JCalendar();
-        calendario.setBounds(50, 50, 200, 200); // Establecer tamaño y posición
-        panel.add(calendario);  // Agregarlo al panel
     }
 
     /**
