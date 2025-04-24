@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,10 +49,10 @@ public class InmateInterface extends javax.swing.JFrame {
         bornDateLabel2 = new javax.swing.JLabel();
         bornDateLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        felonyDescr = new javax.swing.JTextArea();
         title = new javax.swing.JLabel();
         botonEnviarInmate = new javax.swing.JButton();
-        addName1 = new javax.swing.JTextField();
+        addInmateName = new javax.swing.JTextField();
         addExitDate = new javax.swing.JTextField();
         addEntranceDate1 = new javax.swing.JTextField();
 
@@ -84,10 +85,10 @@ public class InmateInterface extends javax.swing.JFrame {
         bornDateLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         bornDateLabel3.setText("Status");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setName(""); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
+        felonyDescr.setColumns(20);
+        felonyDescr.setRows(5);
+        felonyDescr.setName(""); // NOI18N
+        jScrollPane1.setViewportView(felonyDescr);
 
         title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setText("Inmate creation formulary");
@@ -99,9 +100,9 @@ public class InmateInterface extends javax.swing.JFrame {
             }
         });
 
-        addName1.addActionListener(new java.awt.event.ActionListener() {
+        addInmateName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addName1ActionPerformed(evt);
+                addInmateNameActionPerformed(evt);
             }
         });
 
@@ -153,7 +154,7 @@ public class InmateInterface extends javax.swing.JFrame {
                         .addComponent(addEntranceDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                         .addGap(124, 124, 124)
-                        .addComponent(addName1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addInmateName, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addBornDate, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
@@ -179,7 +180,7 @@ public class InmateInterface extends javax.swing.JFrame {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(addInmateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(87, 87, 87)
                         .addComponent(bornDateLabel3))
                     .addGroup(panelLayout.createSequentialGroup()
@@ -234,20 +235,28 @@ public class InmateInterface extends javax.swing.JFrame {
         return DriverManager.getConnection(url, user, password);
     }
     private void botonEnviarInmateInmateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarInmateInmateActionPerformed
-        // Obtener los valores de la interfaz gráfica
-        //Pendiente de insertar las fechas con este video para el RSCalendar: https://www.youtube.com/watch?v=FcAnkj1-j7s&t=9s
-        String name = addBornDate.getText();
-        String status = (String) estatusComboBox.getSelectedItem(); // Estado (Active/Free)
-        String crime = jTextArea1.getText(); // Descripción del crimen
+        // Obtener los valores de los calendarios
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String bornDate = dateFormat.format(bornDateCalendar.getDate());
+        String entranceDate = dateFormat.format(entranceDateCalendar.getDate());
+        String exitDate = dateFormat.format(exitDateCalendar.getDate());
 
-        // Sentencia SQL para insertar los datos en la base de datos
+        // Obtener los valores de la interfaz gráfica
+        String name = addInmateName.getText();
+        String status = (String) estatusComboBox.getSelectedItem();
+        String crime = felonyDescr.getText();
+
+        // Sentencia SQL
         String sql = "INSERT INTO inmates (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Establecer los parámetros de la consulta
-            stmt.setString(1, name); // Nombre
-            stmt.setString(5, status); // Estado
-            stmt.setString(6, crime); // Descripción del crimen
+            // Establecer parámetros
+            stmt.setString(1, name);
+            stmt.setString(2, bornDate);
+            stmt.setString(3, entranceDate);
+            stmt.setString(4, exitDate);
+            stmt.setString(5, status);
+            stmt.setString(6, crime);
 
             // Ejecutar la consulta
             int rowsAffected = stmt.executeUpdate();
@@ -258,15 +267,14 @@ public class InmateInterface extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            // Manejo de errores de base de datos
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonEnviarInmateInmateActionPerformed
 
-    private void addName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addName1ActionPerformed
+    private void addInmateNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInmateNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addName1ActionPerformed
+    }//GEN-LAST:event_addInmateNameActionPerformed
 
     private void addExitDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExitDateActionPerformed
         // TODO add your handling code here:
@@ -315,7 +323,7 @@ public class InmateInterface extends javax.swing.JFrame {
     private javax.swing.JTextField addBornDate;
     private javax.swing.JTextField addEntranceDate1;
     private javax.swing.JTextField addExitDate;
-    private javax.swing.JTextField addName1;
+    private javax.swing.JTextField addInmateName;
     private javax.swing.JLabel bornDateLabel1;
     private javax.swing.JLabel bornDateLabel2;
     private javax.swing.JLabel bornDateLabel3;
@@ -323,8 +331,8 @@ public class InmateInterface extends javax.swing.JFrame {
     private javax.swing.JLabel entranceDate;
     private javax.swing.JComboBox<String> estatusComboBox;
     private javax.swing.JLabel exitDate;
+    private javax.swing.JTextArea felonyDescr;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JPanel panel;
     private javax.swing.JLabel title;
