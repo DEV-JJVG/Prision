@@ -4,6 +4,13 @@
  */
 package InterfacesGraficas;
 
+import static InterfacesGraficas.InmateInterface.connect;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jjvar
@@ -39,14 +46,14 @@ public class PrisonInterface extends javax.swing.JFrame {
         bornDateLabel2 = new javax.swing.JLabel();
         bornDateLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        prisonCapacity = new javax.swing.JLabel();
-        prisonField2 = new javax.swing.JTextField();
-        title1 = new javax.swing.JLabel();
+        capacityLabel = new javax.swing.JLabel();
+        addPrisonLocation = new javax.swing.JTextField();
+        prisonTitle = new javax.swing.JLabel();
         prisonName = new javax.swing.JLabel();
-        prisonField = new javax.swing.JTextField();
-        prisonLocation1 = new javax.swing.JLabel();
-        prisonField3 = new javax.swing.JTextField();
-        prisonName2 = new javax.swing.JLabel();
+        addPrisonName = new javax.swing.JTextField();
+        prisonLocation = new javax.swing.JLabel();
+        prisonCapacity = new javax.swing.JTextField();
+        numberOfInmates = new javax.swing.JLabel();
         prisonField4 = new javax.swing.JTextField();
         botonEnviarPrision = new javax.swing.JButton();
 
@@ -94,26 +101,26 @@ public class PrisonInterface extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        prisonCapacity.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        prisonCapacity.setText("Capacity");
+        capacityLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        capacityLabel.setText("Capacity");
 
-        title1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        title1.setText("Prison creation formulary");
+        prisonTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        prisonTitle.setText("Prison creation formulary");
 
         prisonName.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         prisonName.setText("Prison name");
 
-        prisonField.addActionListener(new java.awt.event.ActionListener() {
+        addPrisonName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prisonFieldActionPerformed(evt);
+                addPrisonNameActionPerformed(evt);
             }
         });
 
-        prisonLocation1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        prisonLocation1.setText("Location");
+        prisonLocation.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        prisonLocation.setText("Location");
 
-        prisonName2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        prisonName2.setText("Number of Inmates");
+        numberOfInmates.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        numberOfInmates.setText("Number of Inmates");
 
         prisonField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,54 +150,54 @@ public class PrisonInterface extends javax.swing.JFrame {
                                     .addComponent(prisonName))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(65, 65, 65)
-                                    .addComponent(prisonField, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(addPrisonName, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(251, 251, 251)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(prisonField2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(prisonField3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(addPrisonLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(prisonCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(prisonLocation1)
+                                .addComponent(prisonLocation)
                                 .addGap(41, 41, 41))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(204, 204, 204)
-                        .addComponent(title1))
+                        .addComponent(prisonTitle))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(280, 280, 280)
                         .addComponent(botonEnviarPrision, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(108, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(82, 82, 82)
-                .addComponent(prisonName2)
+                .addComponent(numberOfInmates)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(prisonCapacity)
+                .addComponent(capacityLabel)
                 .addGap(151, 151, 151))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(title1)
+                .addComponent(prisonTitle)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(prisonLocation1)
+                        .addComponent(prisonLocation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(prisonField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addPrisonLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(prisonName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(prisonField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(addPrisonName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(79, 79, 79)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(prisonName2)
-                    .addComponent(prisonCapacity))
+                    .addComponent(numberOfInmates)
+                    .addComponent(capacityLabel))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(prisonField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prisonCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prisonField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(botonEnviarPrision, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,37 +226,44 @@ public class PrisonInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addNameActionPerformed
 
-    private void prisonFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prisonFieldActionPerformed
+    private void addPrisonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrisonNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_prisonFieldActionPerformed
+    }//GEN-LAST:event_addPrisonNameActionPerformed
 
     private void prisonField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prisonField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_prisonField4ActionPerformed
+    public static Connection connect() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/prision";
+        String user = "root";
+        String password = "";
 
+        return DriverManager.getConnection(url, user, password);
+    }
     private void botonEnviarPrisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarPrisionActionPerformed
         // Obtener los valores de la interfaz gráfica
-        //Pendiente de insertar las fechas con este video para el RSCalendar: https://www.youtube.com/watch?v=FcAnkj1-j7s&t=9s
-        String name = addBornDate.getText();
-        String status = (String) estatusComboBox.getSelectedItem(); // Estado (Active/Free)
-        String crime = jTextArea1.getText(); // Descripción del crimen
+        String prisonName = addPrisonName.getText();
+        String location = addPrisonLocation.getText();
+        int capacity = Integer.parseInt(capacityLabel.getText());
+        int numberOfInmates = Integer.parseInt(prisonField4.getText());
 
         // Sentencia SQL para insertar los datos en la base de datos
-        String sql = "INSERT INTO inmates (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO prisons (name, location, capacity, number_of_inmates) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             // Establecer los parámetros de la consulta
-            stmt.setString(1, name); // Nombre
-            stmt.setString(5, status); // Estado
-            stmt.setString(6, crime); // Descripción del crimen
+            stmt.setString(1, prisonName);
+            stmt.setString(2, location);
+            stmt.setInt(3, capacity);
+            stmt.setInt(4, numberOfInmates);
 
             // Ejecutar la consulta
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Inmate inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Prison inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Failed to insert prison", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
             // Manejo de errores de base de datos
@@ -295,11 +309,14 @@ public class PrisonInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addName;
+    private javax.swing.JTextField addPrisonLocation;
+    private javax.swing.JTextField addPrisonName;
     private javax.swing.JLabel bornDateLabel1;
     private javax.swing.JLabel bornDateLabel2;
     private javax.swing.JLabel bornDateLabel3;
     private javax.swing.JButton botonEnviar;
     private javax.swing.JButton botonEnviarPrision;
+    private javax.swing.JLabel capacityLabel;
     private javax.swing.JLabel entranceDate;
     private javax.swing.JComboBox<String> estatusComboBox;
     private javax.swing.JLabel exitDate;
@@ -307,15 +324,12 @@ public class PrisonInterface extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JLabel prisonCapacity;
-    private javax.swing.JTextField prisonField;
-    private javax.swing.JTextField prisonField2;
-    private javax.swing.JTextField prisonField3;
+    private javax.swing.JLabel numberOfInmates;
+    private javax.swing.JTextField prisonCapacity;
     private javax.swing.JTextField prisonField4;
-    private javax.swing.JLabel prisonLocation1;
+    private javax.swing.JLabel prisonLocation;
     private javax.swing.JLabel prisonName;
-    private javax.swing.JLabel prisonName2;
+    private javax.swing.JLabel prisonTitle;
     private javax.swing.JLabel title;
-    private javax.swing.JLabel title1;
     // End of variables declaration//GEN-END:variables
 }
