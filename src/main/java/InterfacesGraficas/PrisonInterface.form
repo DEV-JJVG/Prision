@@ -140,93 +140,94 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="651" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="prisonField2" min="-2" pref="180" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="286" max="-2" attributes="0"/>
-                          <Component id="prisonField3" min="-2" pref="180" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="prisonField4" min="-2" pref="191" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="prisonName" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                      <Component id="addPrisonName" min="-2" pref="186" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="251" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="addPrisonLocation" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <Component id="prisonCapacity" min="-2" pref="180" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="prisonLocation" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="prisonLocation1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="371" max="-2" attributes="0"/>
-                          <Component id="prisonCapacity" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="204" max="-2" attributes="0"/>
+                          <Component id="prisonTitle" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="title1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="553" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="280" max="-2" attributes="0"/>
+                          <Component id="botonEnviarPrision" min="-2" pref="179" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace pref="108" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="208" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="prisonField4" min="-2" pref="191" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="prisonName2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
-                      <Component id="prisonName1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="1220" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-              <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
-                      <Component id="prisonField1" min="-2" pref="186" max="-2" attributes="0"/>
-                      <EmptySpace pref="1195" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="numberOfInmates" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="capacityLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="title1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="prisonTitle" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="prisonLocation" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="addPrisonLocation" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="prisonName" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="addPrisonName" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="prisonCapacity" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="prisonLocation1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="numberOfInmates" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="capacityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="prisonField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="prisonField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="prisonCapacity" min="-2" max="-2" attributes="0"/>
+                      <Component id="prisonField4" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
-                  <Component id="prisonName2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="prisonField4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="361" max="32767" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                      <Component id="prisonName1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="634" max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-              <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
-                      <Component id="prisonField1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="596" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace pref="67" max="32767" attributes="0"/>
+                  <Component id="botonEnviarPrision" min="-2" pref="39" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="prisonCapacity">
+        <Component class="javax.swing.JLabel" name="capacityLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="24" style="0"/>
@@ -234,9 +235,9 @@
             <Property name="text" type="java.lang.String" value="Capacity"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="prisonField2">
+        <Component class="javax.swing.JTextField" name="addPrisonLocation">
         </Component>
-        <Component class="javax.swing.JLabel" name="title1">
+        <Component class="javax.swing.JLabel" name="prisonTitle">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="36" style="0"/>
@@ -244,7 +245,7 @@
             <Property name="text" type="java.lang.String" value="Prison creation formulary"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="prisonName1">
+        <Component class="javax.swing.JLabel" name="prisonName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="24" style="0"/>
@@ -252,12 +253,12 @@
             <Property name="text" type="java.lang.String" value="Prison name"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="prisonField1">
+        <Component class="javax.swing.JTextField" name="addPrisonName">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="prisonField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addPrisonNameActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="prisonLocation1">
+        <Component class="javax.swing.JLabel" name="prisonLocation">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="24" style="0"/>
@@ -265,9 +266,9 @@
             <Property name="text" type="java.lang.String" value="Location"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="prisonField3">
+        <Component class="javax.swing.JTextField" name="prisonCapacity">
         </Component>
-        <Component class="javax.swing.JLabel" name="prisonName2">
+        <Component class="javax.swing.JLabel" name="numberOfInmates">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="18" style="0"/>
@@ -278,6 +279,14 @@
         <Component class="javax.swing.JTextField" name="prisonField4">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="prisonField4ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="botonEnviarPrision">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Enviar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonEnviarPrisionActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

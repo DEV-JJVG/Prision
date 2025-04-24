@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,14 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class InmateInterface extends javax.swing.JFrame {
 
+    private JCalendar bornDateCalendar;
+    private JCalendar entranceDateCalendar;
+    private JCalendar exitDateCalendar;
+
     /**
      * Creates new form InmateInterface
      */
     public InmateInterface() {
         initComponents();
-        JCalendar calendario = new JCalendar();
-        calendario.setBounds(50, 50, 200, 200); // Establecer tamaño y posición
-        panel.add(calendario);  // Agregarlo al panel
     }
 
     /**
@@ -39,7 +41,7 @@ public class InmateInterface extends javax.swing.JFrame {
 
         panel = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
-        addName = new javax.swing.JTextField();
+        addBornDate = new javax.swing.JTextField();
         exitDate = new javax.swing.JLabel();
         bornDateLabel1 = new javax.swing.JLabel();
         entranceDate = new javax.swing.JLabel();
@@ -47,18 +49,21 @@ public class InmateInterface extends javax.swing.JFrame {
         bornDateLabel2 = new javax.swing.JLabel();
         bornDateLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        felonyDescr = new javax.swing.JTextArea();
         title = new javax.swing.JLabel();
-        botonEnviar = new javax.swing.JButton();
+        botonEnviarInmate = new javax.swing.JButton();
+        addInmateName = new javax.swing.JTextField();
+        addExitDate = new javax.swing.JTextField();
+        addEntranceDate1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         nameLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         nameLabel.setText("Name");
 
-        addName.addActionListener(new java.awt.event.ActionListener() {
+        addBornDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addNameActionPerformed(evt);
+                addBornDateActionPerformed(evt);
             }
         });
 
@@ -80,18 +85,36 @@ public class InmateInterface extends javax.swing.JFrame {
         bornDateLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         bornDateLabel3.setText("Status");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setName(""); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
+        felonyDescr.setColumns(20);
+        felonyDescr.setRows(5);
+        felonyDescr.setName(""); // NOI18N
+        jScrollPane1.setViewportView(felonyDescr);
 
         title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setText("Inmate creation formulary");
 
-        botonEnviar.setText("Enviar");
-        botonEnviar.addActionListener(new java.awt.event.ActionListener() {
+        botonEnviarInmate.setText("Enviar");
+        botonEnviarInmate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEnviarActionPerformed(evt);
+                botonEnviarInmateInmateActionPerformed(evt);
+            }
+        });
+
+        addInmateName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addInmateNameActionPerformed(evt);
+            }
+        });
+
+        addExitDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addExitDateActionPerformed(evt);
+            }
+        });
+
+        addEntranceDate1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEntranceDate1ActionPerformed(evt);
             }
         });
 
@@ -100,78 +123,92 @@ public class InmateInterface extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addGap(175, 175, 175)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(addName, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(bornDateLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(entranceDate)
-                        .addGap(316, 316, 316)
-                        .addComponent(exitDate)
-                        .addGap(274, 274, 274))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(nameLabel)
-                        .addContainerGap())
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(estatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(bornDateLabel3)))
-                        .addGap(407, 407, 407)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(bornDateLabel2)
-                                .addContainerGap(656, Short.MAX_VALUE))
-                            .addGroup(panelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(111, 111, 111))))))
+                .addGap(233, 233, 233)
+                .addComponent(title)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(189, 189, 189)
+                .addComponent(nameLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bornDateLabel1)
+                .addGap(248, 248, 248))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(title)
-                .addGap(541, 541, 541))
+                .addComponent(entranceDate)
+                .addGap(234, 234, 234))
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(estatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exitDate)
+                .addGap(264, 264, 264))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addExitDate, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(174, 174, 174)
+                        .addComponent(bornDateLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addEntranceDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(addInmateName, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(addBornDate, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(bornDateLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(184, 184, 184)
+                        .addComponent(botonEnviarInmate, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(209, 209, 209))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
                 .addComponent(title)
-                .addGap(18, 18, 18)
-                .addComponent(nameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(entranceDate, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(exitDate)
-                        .addComponent(bornDateLabel1)))
-                .addGap(53, 53, 53)
+                .addGap(62, 62, 62)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLabel)
+                    .addComponent(bornDateLabel1))
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addComponent(bornDateLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(estatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addInmateName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(87, 87, 87)
+                        .addComponent(bornDateLabel3))
                     .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(addBornDate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(entranceDate)
+                        .addGap(18, 18, 18)
+                        .addComponent(addEntranceDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(estatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exitDate))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
                         .addComponent(bornDateLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                                .addComponent(botonEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23)))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(addExitDate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(106, 106, 106)
+                        .addComponent(botonEnviarInmate, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
 
-        addName.getAccessibleContext().setAccessibleName("");
+        addBornDate.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -187,9 +224,9 @@ public class InmateInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNameActionPerformed
+    private void addBornDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBornDateActionPerformed
 
-    }//GEN-LAST:event_addNameActionPerformed
+    }//GEN-LAST:event_addBornDateActionPerformed
     public static Connection connect() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/prison"; // Cambia esto a tu URL de base de datos
         String user = "root"; // Cambia esto a tu usuario
@@ -197,21 +234,29 @@ public class InmateInterface extends javax.swing.JFrame {
 
         return DriverManager.getConnection(url, user, password);
     }
-    private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        // Obtener los valores de la interfaz gráfica
-        //Pendiente de insertar las fechas con este video para el RSCalendar: https://www.youtube.com/watch?v=FcAnkj1-j7s&t=9s
-        String name = addName.getText();
-        String status = (String) estatusComboBox.getSelectedItem(); // Estado (Active/Free)
-        String crime = jTextArea1.getText(); // Descripción del crimen
+    private void botonEnviarInmateInmateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarInmateInmateActionPerformed
+        // Obtener los valores de los calendarios
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String bornDate = dateFormat.format(bornDateCalendar.getDate());
+        String entranceDate = dateFormat.format(entranceDateCalendar.getDate());
+        String exitDate = dateFormat.format(exitDateCalendar.getDate());
 
-        // Sentencia SQL para insertar los datos en la base de datos
+        // Obtener los valores de la interfaz gráfica
+        String name = addInmateName.getText();
+        String status = (String) estatusComboBox.getSelectedItem();
+        String crime = felonyDescr.getText();
+
+        // Sentencia SQL
         String sql = "INSERT INTO inmates (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Establecer los parámetros de la consulta
-            stmt.setString(1, name); // Nombre
-            stmt.setString(5, status); // Estado
-            stmt.setString(6, crime); // Descripción del crimen
+            // Establecer parámetros
+            stmt.setString(1, name);
+            stmt.setString(2, bornDate);
+            stmt.setString(3, entranceDate);
+            stmt.setString(4, exitDate);
+            stmt.setString(5, status);
+            stmt.setString(6, crime);
 
             // Ejecutar la consulta
             int rowsAffected = stmt.executeUpdate();
@@ -222,11 +267,22 @@ public class InmateInterface extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            // Manejo de errores de base de datos
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botonEnviarActionPerformed
+    }//GEN-LAST:event_botonEnviarInmateInmateActionPerformed
+
+    private void addInmateNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInmateNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addInmateNameActionPerformed
+
+    private void addExitDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addExitDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addExitDateActionPerformed
+
+    private void addEntranceDate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEntranceDate1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addEntranceDate1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,16 +320,19 @@ public class InmateInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField addName;
+    private javax.swing.JTextField addBornDate;
+    private javax.swing.JTextField addEntranceDate1;
+    private javax.swing.JTextField addExitDate;
+    private javax.swing.JTextField addInmateName;
     private javax.swing.JLabel bornDateLabel1;
     private javax.swing.JLabel bornDateLabel2;
     private javax.swing.JLabel bornDateLabel3;
-    private javax.swing.JButton botonEnviar;
+    private javax.swing.JButton botonEnviarInmate;
     private javax.swing.JLabel entranceDate;
     private javax.swing.JComboBox<String> estatusComboBox;
     private javax.swing.JLabel exitDate;
+    private javax.swing.JTextArea felonyDescr;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JPanel panel;
     private javax.swing.JLabel title;
