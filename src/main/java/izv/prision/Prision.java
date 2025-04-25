@@ -6,6 +6,8 @@ package izv.prision;
 
 import Exception.InvalidAgeException;
 import Inmate.Inmate;
+import InterfacesGraficas.InmateInterface;
+import InterfacesGraficas.PrisonInterface;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +24,17 @@ public class Prision {
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.println(automaticInmateCreator());
+        // Inicia la interfaz gráfica
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InmateInterface().setVisible(true);
+            }
+        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PrisonInterface().setVisible(true);
+            }
+        });
     }
 
     /*
