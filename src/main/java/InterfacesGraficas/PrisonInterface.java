@@ -33,18 +33,6 @@ public class PrisonInterface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        title = new javax.swing.JLabel();
-        botonEnviar = new javax.swing.JButton();
-        nameLabel = new javax.swing.JLabel();
-        addName = new javax.swing.JTextField();
-        exitDate = new javax.swing.JLabel();
-        bornDateLabel1 = new javax.swing.JLabel();
-        entranceDate = new javax.swing.JLabel();
-        estatusComboBox = new javax.swing.JComboBox<>();
-        bornDateLabel2 = new javax.swing.JLabel();
-        bornDateLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         capacityLabel = new javax.swing.JLabel();
         addPrisonLocation = new javax.swing.JTextField();
@@ -55,54 +43,18 @@ public class PrisonInterface extends javax.swing.JFrame {
         prisonCapacity = new javax.swing.JTextField();
         numberOfInmates = new javax.swing.JLabel();
         prisonField4 = new javax.swing.JTextField();
-        botonEnviarPrision = new javax.swing.JButton();
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setName(""); // NOI18N
-        jScrollPane1.setViewportView(jTextArea1);
-
-        title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        title.setText("Inmate creation formulary");
-
-        botonEnviar.setText("Enviar");
-        botonEnviar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEnviarActionPerformed(evt);
-            }
-        });
-
-        nameLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
-        nameLabel.setText("Name");
-
-        addName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addNameActionPerformed(evt);
-            }
-        });
-
-        exitDate.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        exitDate.setText("Exit date");
-
-        bornDateLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        bornDateLabel1.setText("Born date");
-
-        entranceDate.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        entranceDate.setText("Entrance date");
-
-        estatusComboBox.setMaximumRowCount(2);
-        estatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Free" }));
-
-        bornDateLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        bornDateLabel2.setText("Felony description");
-
-        bornDateLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        bornDateLabel3.setText("Status");
+        submitPrisonButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         capacityLabel.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         capacityLabel.setText("Capacity");
+
+        addPrisonLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPrisonLocationActionPerformed(evt);
+            }
+        });
 
         prisonTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         prisonTitle.setText("Prison creation formulary");
@@ -128,10 +80,10 @@ public class PrisonInterface extends javax.swing.JFrame {
             }
         });
 
-        botonEnviarPrision.setText("Enviar");
-        botonEnviarPrision.addActionListener(new java.awt.event.ActionListener() {
+        submitPrisonButton.setText("Submit");
+        submitPrisonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonEnviarPrisionActionPerformed(evt);
+                submitPrisonButtonActionPerformed(evt);
             }
         });
 
@@ -166,7 +118,7 @@ public class PrisonInterface extends javax.swing.JFrame {
                         .addComponent(prisonTitle))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(280, 280, 280)
-                        .addComponent(botonEnviarPrision, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(submitPrisonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(108, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(82, 82, 82)
@@ -200,7 +152,7 @@ public class PrisonInterface extends javax.swing.JFrame {
                     .addComponent(prisonCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prisonField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(botonEnviarPrision, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitPrisonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
         );
 
@@ -218,14 +170,6 @@ public class PrisonInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonEnviarActionPerformed
-
-    private void addNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addNameActionPerformed
-
     private void addPrisonNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrisonNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addPrisonNameActionPerformed
@@ -240,7 +184,7 @@ public class PrisonInterface extends javax.swing.JFrame {
 
         return DriverManager.getConnection(url, user, password);
     }
-    private void botonEnviarPrisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarPrisionActionPerformed
+    private void submitPrisonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitPrisonButtonActionPerformed
         // Obtener los valores de la interfaz gráfica
         String prisonName = addPrisonName.getText();
         String location = addPrisonLocation.getText();
@@ -248,7 +192,7 @@ public class PrisonInterface extends javax.swing.JFrame {
         int numberOfInmates = Integer.parseInt(prisonField4.getText());
 
         // Sentencia SQL para insertar los datos en la base de datos
-        String sql = "INSERT INTO prisons (name, location, capacity, number_of_inmates) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO prison (name, location, capacity, number_of_inmates) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             // Establecer los parámetros de la consulta
@@ -270,7 +214,11 @@ public class PrisonInterface extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botonEnviarPrisionActionPerformed
+    }//GEN-LAST:event_submitPrisonButtonActionPerformed
+
+    private void addPrisonLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPrisonLocationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addPrisonLocationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,28 +256,16 @@ public class PrisonInterface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField addName;
     private javax.swing.JTextField addPrisonLocation;
     private javax.swing.JTextField addPrisonName;
-    private javax.swing.JLabel bornDateLabel1;
-    private javax.swing.JLabel bornDateLabel2;
-    private javax.swing.JLabel bornDateLabel3;
-    private javax.swing.JButton botonEnviar;
-    private javax.swing.JButton botonEnviarPrision;
     private javax.swing.JLabel capacityLabel;
-    private javax.swing.JLabel entranceDate;
-    private javax.swing.JComboBox<String> estatusComboBox;
-    private javax.swing.JLabel exitDate;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel numberOfInmates;
     private javax.swing.JTextField prisonCapacity;
     private javax.swing.JTextField prisonField4;
     private javax.swing.JLabel prisonLocation;
     private javax.swing.JLabel prisonName;
     private javax.swing.JLabel prisonTitle;
-    private javax.swing.JLabel title;
+    private javax.swing.JButton submitPrisonButton;
     // End of variables declaration//GEN-END:variables
 }
