@@ -13,8 +13,9 @@ import java.util.HashMap;
  *
  * @author Hugo
  */
-public class Guard extends Person implements MandatoryTasks{
-    enum CARGO{
+public class Guard extends Person implements MandatoryTasks {
+
+    enum CARGO {
         director,
         subdirector,
         securityCheif,
@@ -22,30 +23,17 @@ public class Guard extends Person implements MandatoryTasks{
         liutenant,
         sargeant,
         oficer,
-    }
-    
-    HashMap<String, Activity> schedule;
 
-    public Guard(HashMap<String, Activity> schedule, String name, Date born_date) throws InvalidAgeException {
+    }
+
+    public Guard(String name, Date born_date) throws InvalidAgeException {
         super(name, born_date);
-        setSchedule(schedule);
     }
-
     //getters
 
-    public HashMap<String, Activity> getSchedule() {
-        return schedule;
-    }
-    
     //
     //
     //
     //
     //setters
-
-    public void setSchedule(HashMap<String, Activity> schedule) {
-        this.schedule = schedule;
-    }
-    
-    
 }
