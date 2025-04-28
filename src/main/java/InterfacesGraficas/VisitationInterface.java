@@ -239,14 +239,14 @@ public class VisitationInterface extends javax.swing.JPanel {
         return DriverManager.getConnection(url, user, password);
     }
     private void submitVisitorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitVisitorButtonActionPerformed
-        /*SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        format.setLenient(false);
-         */
-        // Obtener los valores de las fechas
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         format.setLenient(false);
-        String visitor_bornDate = dateFormat.format(addVisitorBornDate.getDate());
-        String visitationDate = dateFormat.format(addVisitationDate.getDate());
+
+        // Obtener los valores de las fechas
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        String visitor_bornDate = dateFormat.format(addVisitorBornDate.getText());
+        String visitationDate = dateFormat.format(addVisitationDate.getText());
 
         // Obtener los valores de la interfaz gráfica
         String visitorName = addVisitorName.getText();
