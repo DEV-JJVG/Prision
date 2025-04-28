@@ -188,7 +188,7 @@ public class PrisonInterface extends javax.swing.JFrame {
         // Obtener los valores de la interfaz gráfica
         String prisonName = addPrisonName.getText();
         String location = addPrisonLocation.getText();
-        int capacity = Integer.parseInt(capacityLabel.getText());
+        int capacity = Integer.parseInt(prisonCapacity.getText());
         int numberOfInmates = Integer.parseInt(prisonField4.getText());
 
         // Sentencia SQL para insertar los datos en la base de datos
