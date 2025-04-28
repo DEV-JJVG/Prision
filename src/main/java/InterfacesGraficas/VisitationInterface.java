@@ -4,6 +4,7 @@
  */
 package InterfacesGraficas;
 
+import static InterfacesGraficas.InmateInterface.connect;
 import static InterfacesGraficas.PrisonInterface.connect;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -225,7 +226,24 @@ public class VisitationInterface extends javax.swing.JPanel {
     }//GEN-LAST:event_addVisitorBornDateActionPerformed
 
     private void searchInmateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchInmateButtonActionPerformed
-        // TODO add your handling code here:
+
+        // Sentencia SQL
+        String sql = "SELECT * FROM inmate";
+
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Ejecutar la consulta
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Inmate inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_searchInmateButtonActionPerformed
 
     private void addInmateId2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addInmateId2ActionPerformed
@@ -239,14 +257,14 @@ public class VisitationInterface extends javax.swing.JPanel {
         return DriverManager.getConnection(url, user, password);
     }
     private void submitVisitorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitVisitorButtonActionPerformed
-        /*SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        format.setLenient(false);
-         */
-        // Obtener los valores de las fechas
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         format.setLenient(false);
-        String visitor_bornDate = dateFormat.format(addVisitorBornDate.getDate());
-        String visitationDate = dateFormat.format(addVisitationDate.getDate());
+
+        // Obtener los valores de las fechas
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        String visitor_bornDate = dateFormat.format(addVisitorBornDate.getText());
+        String visitationDate = dateFormat.format(addVisitationDate.getText());
 
         // Obtener los valores de la interfaz gráfica
         String visitorName = addVisitorName.getText();
@@ -276,6 +294,41 @@ public class VisitationInterface extends javax.swing.JPanel {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PrisonInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PrisonInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PrisonInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PrisonInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VisitationInterface().setVisible(true);
+            }
+        });
     }//GEN-LAST:event_submitVisitorButtonActionPerformed
 
 

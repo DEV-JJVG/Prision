@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class InmateInterface extends javax.swing.JFrame {
 
-   
     /**
      * Creates new form InmateInterface
      */
@@ -51,7 +50,7 @@ public class InmateInterface extends javax.swing.JFrame {
         submitInmateButton = new javax.swing.JButton();
         addInmateName = new javax.swing.JTextField();
         addExitDate = new javax.swing.JTextField();
-        addEntranceDate1 = new javax.swing.JTextField();
+        addEntranceDate = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,9 +108,9 @@ public class InmateInterface extends javax.swing.JFrame {
             }
         });
 
-        addEntranceDate1.addActionListener(new java.awt.event.ActionListener() {
+        addEntranceDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addEntranceDate1ActionPerformed(evt);
+                addEntranceDateActionPerformed(evt);
             }
         });
 
@@ -148,7 +147,7 @@ public class InmateInterface extends javax.swing.JFrame {
                         .addGap(174, 174, 174)
                         .addComponent(statusLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addEntranceDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(addEntranceDate, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelLayout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(addInmateName, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,7 +185,7 @@ public class InmateInterface extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(entranceDate)
                         .addGap(18, 18, 18)
-                        .addComponent(addEntranceDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(addEntranceDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(estatusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,10 +232,11 @@ public class InmateInterface extends javax.swing.JFrame {
     }
     private void submitInmateButtonInmateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitInmateButtonInmateActionPerformed
         // Obtener los valores de los calendarios
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String bornDate = dateFormat.format(bornDateCalendar.getDate());
-        String entranceDate = dateFormat.format(entranceDateCalendar.getDate());
-        String exitDate = dateFormat.format(exitDateCalendar.getDate());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);
+        String bornDate = dateFormat.format(addBornDate.getText());
+        String entranceDate = dateFormat.format(addEntranceDate.getText());
+        String exitDate = dateFormat.format(addExitDate.getText());
 
         // Obtener los valores de la interfaz gráfica
         String name = addInmateName.getText();
@@ -277,9 +277,9 @@ public class InmateInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_addExitDateActionPerformed
 
-    private void addEntranceDate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEntranceDate1ActionPerformed
+    private void addEntranceDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEntranceDateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addEntranceDate1ActionPerformed
+    }//GEN-LAST:event_addEntranceDateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,7 +315,7 @@ public class InmateInterface extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addBornDate;
-    private javax.swing.JTextField addEntranceDate1;
+    private javax.swing.JTextField addEntranceDate;
     private javax.swing.JTextField addExitDate;
     private javax.swing.JTextField addInmateName;
     private javax.swing.JTextArea addfelonyDescr;
