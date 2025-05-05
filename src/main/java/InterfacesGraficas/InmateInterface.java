@@ -4,8 +4,6 @@
  */
 package InterfacesGraficas;
 
-import static ConectionDB.ConectionDB.DatabaseConnection.connect;
-import com.toedter.calendar.JCalendar;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -224,30 +222,36 @@ public class InmateInterface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_addBornDateActionPerformed
     public static Connection connect() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/prison"; // Cambia esto a tu URL de base de datos
-        String user = "root"; // Cambia esto a tu usuario
-        String password = ""; // Cambia esto a tu contraseña
+        //Realizing the connection to the database
+        String url = "jdbc:mysql://localhost:3306/prison";
+        String user = "root";
+        String password = "";
 
         return DriverManager.getConnection(url, user, password);
     }
     private void submitInmateButtonInmateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitInmateButtonInmateActionPerformed
-        // Obtener los valores de los calendarios
+        /*I have made a DateFormat and a .setLenient to delimitate the 
+        default values from String to use it later on the query as a Date with 
+        only a correct format
+         */
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
+
+        // Obtaining the values from the Dates converted to Strings
         String bornDate = dateFormat.format(addBornDate.getText());
         String entranceDate = dateFormat.format(addEntranceDate.getText());
         String exitDate = dateFormat.format(addExitDate.getText());
 
-        // Obtener los valores de la interfaz gráfica
+        // Obtaining the values from the GUI
         String name = addInmateName.getText();
         String status = (String) estatusComboBox.getSelectedItem();
         String crime = addfelonyDescr.getText();
 
-        // Sentencia SQL
+        // SQL sentence
         String sql = "INSERT INTO inmate (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Establecer parámetros
+            // Stablishing the parameters of the query creating a PreparedStatement
             stmt.setString(1, name);
             stmt.setString(2, bornDate);
             stmt.setString(3, entranceDate);
@@ -263,6 +267,7 @@ public class InmateInterface extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            //Handling Exceptions
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -285,27 +290,7 @@ public class InmateInterface extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
 
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InmateInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InmateInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InmateInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InmateInterface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InmateInterface().setVisible(true);
