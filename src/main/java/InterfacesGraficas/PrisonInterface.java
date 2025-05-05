@@ -4,7 +4,6 @@
  */
 package InterfacesGraficas;
 
-import static InterfacesGraficas.InmateInterface.connect;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -178,6 +177,7 @@ public class PrisonInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_prisonField4ActionPerformed
     public static Connection connect() throws SQLException {
+        //Realizing the connection to the database
         String url = "jdbc:mysql://localhost:3306/prision";
         String user = "root";
         String password = "";
@@ -185,23 +185,23 @@ public class PrisonInterface extends javax.swing.JFrame {
         return DriverManager.getConnection(url, user, password);
     }
     private void submitPrisonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitPrisonButtonActionPerformed
-        // Obtener los valores de la interfaz gráfica
+        // Obtaining the values from the GUI
         String prisonName = addPrisonName.getText();
         String location = addPrisonLocation.getText();
         int capacity = Integer.parseInt(capacityLabel.getText());
         int numberOfInmates = Integer.parseInt(prisonField4.getText());
 
-        // Sentencia SQL para insertar los datos en la base de datos
+        // SQL sentence
         String sql = "INSERT INTO prison (name, location, capacity, number_of_inmates) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Establecer los parámetros de la consulta
+            // Stablishing the parameters of the query creating a PreparedStatement
             stmt.setString(1, prisonName);
             stmt.setString(2, location);
             stmt.setInt(3, capacity);
             stmt.setInt(4, numberOfInmates);
 
-            // Ejecutar la consulta
+            // Executing the query
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -209,6 +209,7 @@ public class PrisonInterface extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to insert prison", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            //Handling Exceptions
         } catch (SQLException e) {
             // Manejo de errores de base de datos
             e.printStackTrace();
