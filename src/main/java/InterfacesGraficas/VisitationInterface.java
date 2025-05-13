@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Mañana
+ * @author JJ
  */
 public class VisitationInterface extends javax.swing.JPanel {
 
