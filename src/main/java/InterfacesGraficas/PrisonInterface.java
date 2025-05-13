@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author jjvar
+ * @author JJ
  */
 public class PrisonInterface extends javax.swing.JFrame {
 
