@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Mañana
+ * @author JJ
  */
 public class GuardInterface extends javax.swing.JPanel {
 

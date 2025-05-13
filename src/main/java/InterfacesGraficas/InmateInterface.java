@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author JJ y Hugo
+ * @author JJ
  */
 public class InmateInterface extends javax.swing.JFrame {
 
