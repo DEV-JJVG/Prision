@@ -6,8 +6,10 @@ package izv.prision;
 
 import Exception.InvalidAgeException;
 import Inmate.Inmate;
+import InterfacesGraficas.GuardInterface;
 import InterfacesGraficas.InmateInterface;
 import InterfacesGraficas.PrisonInterface;
+import InterfacesGraficas.VisitationInterface;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +35,16 @@ public class Prision {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PrisonInterface().setVisible(true);
+            }
+        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GuardInterface().setVisible(true);
+            }
+        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VisitationInterface().setVisible(true);
             }
         });
     }
