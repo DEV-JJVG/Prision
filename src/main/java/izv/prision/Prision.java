@@ -5,15 +5,24 @@
 package izv.prision;
 
 import Exception.InvalidAgeException;
+import Guardias.Guard;
+import Guardias.Guard.CARGO;
 import Inmate.Inmate;
 import InterfacesGraficas.GuardInterface;
 import InterfacesGraficas.InmateInterface;
 import InterfacesGraficas.PrisonInterface;
 import InterfacesGraficas.VisitationInterface;
+import java.awt.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -26,27 +35,7 @@ public class Prision {
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Inicia la interfaz gráfica
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InmateInterface().setVisible(true);
-            }
-        });
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrisonInterface().setVisible(true);
-            }
-        });
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GuardInterface().setVisible(true);
-            }
-        });
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VisitationInterface().setVisible(true);
-            }
-        });
+        menu();
     }
 
     /*
@@ -67,6 +56,180 @@ public class Prision {
      */
     //normal funtions
     //here there will be oall the funtions normaly used in the program
+    public static void menu() {
+        boolean menuIncorrecto = true;
+        int opcion;
+        while (menuIncorrecto) {
+            System.out.println("=== MAIN MENU ===");
+            System.out.println("1. Use current prison");
+            System.out.println("2. make a new prison");
+            System.out.println("3. exit");
+            System.out.print("Choose typing a number: ");
+            opcion = userInput();;
+            // Validación de entrada
+
+            switch (opcion) {
+                case 1:
+                    mainPrisonWork();
+                    break;
+                case 2:
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new InmateInterface().setVisible(true);
+                        }
+                    });
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new PrisonInterface().setVisible(true);
+                        }
+                    });
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new GuardInterface().setVisible(true);
+                        }
+                    });
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new VisitationInterface().setVisible(true);
+                        }
+                    });
+                    break;
+                case 3:
+                    System.out.println("exiting program");
+                    menuIncorrecto = false;
+                    break;
+                default:
+                    System.out.println("choose betewing 1 and 3");
+            }
+
+            System.out.println(); // Línea en blanco para separación
+        }
+
+    }
+
+    public static int userInput() {
+        int number = 0;
+        boolean rightNumber = true;
+        while (rightNumber) {
+            try {
+                number = input.nextInt();
+                rightNumber = false;
+            } catch (InputMismatchException e) {
+                System.out.println("you must put a full number");
+            }
+        }
+        return number;
+    }
+
+    public static void mainPrisonWork() {
+        ArrayList<Inmate> inmates = obtainAllInmates();
+        ArrayList<Guard> guards = obtainAllGuards();
+
+
+    }
+
+    public static Connection connect() throws SQLException {
+        String url = "jdbc:mysql://localhost:3306/prision";
+        String user = "root";
+        String password = "";
+
+        return DriverManager.getConnection(url, user, password);
+    }
+
+    public static ArrayList<Inmate> obtainAllInmates() {
+        ArrayList<Inmate> inmates = new ArrayList<>();
+
+        try {
+            Connection conn = connect();
+
+            Statement stmtInmates = conn.createStatement();
+            Statement stmtVisits = conn.createStatement();
+
+            ResultSet rs = stmtInmates.executeQuery("SELECT * FROM `inmate`");
+            ResultSet res = stmtVisits.executeQuery("SELECT * FROM `visitation`");
+
+            ArrayList<Visit> allVisits = new ArrayList<>();
+            while (res.next()) {
+                System.out.println(res.getInt("inmate_ID"));
+                allVisits.add(new Visit(
+                        res.getInt("visitation_ID"),
+                        res.getDate("visitation_date"),
+                        res.getString("visitor_name"),
+                        res.getString("relationship"),
+                        res.getInt("inmate_ID")
+                ));
+            }
+
+            while (rs.next()) {
+                int inmateId = rs.getInt("inmate_ID");
+
+                // Filtrar solo las visitas de ese preso
+                ArrayList<Visit> visits = new ArrayList<>();
+                for (Visit v : allVisits) {
+                    if (v.getInmate_ID() == inmateId) {
+                        visits.add(v);
+                    }
+                }
+
+                try {
+                    inmates.add(new Inmate(
+                            rs.getDate("inserction_date"),
+                            rs.getDate("exit_date"),
+                            rs.getString("status"),
+                            rs.getString("crime"),
+                            visits,
+                            rs.getString("name"),
+                            rs.getDate("born_date"),
+                            inmateId
+                    ));
+                } catch (InvalidAgeException ex) {
+                    System.err.println("Invalid age for inmate ID " + inmateId + ": " + ex.getMessage());
+                }
+            }
+
+            res.close();
+            rs.close();
+            stmtInmates.close();
+            stmtVisits.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+
+        return inmates;
+    }
+
+    public static ArrayList<Guard> obtainAllGuards() {
+        ArrayList<Guard> guards = new ArrayList<>();
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `guard`");
+
+            while (rs.next()) {
+                try {
+                    guards.add(new Guard(
+                            CARGO.valueOf(rs.getString("position")),
+                            rs.getString("name"),
+                            rs.getDate("born_date"),
+                            rs.getInt("guard_ID")
+                    ));
+                } catch (InvalidAgeException ex) {
+                    System.err.println("Invalid age for inmate ID: " + ex.getMessage());
+                }
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+        return guards;
+    }
+
     /*
     
     
@@ -124,20 +287,19 @@ public class Prision {
     }
 
     public static Inmate manualInmateCreator() {
-        System.out.println("Date entrance_date, Date exit_date, boolean status, String felony,\n"
+        System.out.println("Date entrance_date, Date exit_date, String status, String felony,\n"
                 + "ArrayList<Visit> visits(automatic but you must enter an int(number of visits)),\n"
-                + "boolean reoffending, String name, Date born_date, int id");
+                + "String name, Date born_date, int id");
         Inmate inmate = null;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         format.setLenient(false);
         String entrance_date = input.nextLine();
         String exit_date = input.nextLine();
-        boolean status = input.nextBoolean();
+        String status = input.nextLine();
         input.nextLine();
         String felony = input.nextLine();
         int numberOfVisits = input.nextInt();
         input.nextLine();
-        boolean reoffending = input.nextBoolean();
         input.nextLine();
         String name = input.nextLine();
         String born_date = input.nextLine();
@@ -152,7 +314,7 @@ public class Prision {
             Date entranceDate = format.parse(entrance_date);
             Date exitDate = format.parse(exit_date);
             Date bornDate = format.parse(born_date);
-            inmate = new Inmate(entranceDate, exitDate, status, felony, reoffending, visits, name, bornDate, id);
+            inmate = new Inmate(entranceDate, exitDate, status, felony, visits, name, bornDate, id);
         } catch (ParseException ex) {
             System.out.println(ex.getMessage());
         } catch (InvalidAgeException ex) {
@@ -176,11 +338,11 @@ public class Prision {
             System.out.println(ex.getMessage());
         }
 
-        Person person = automaticPersonCreator();
+        String name = autoNameSelector();
 
         String relationship = input.nextLine();
 
-        return new Visit(visit_id, visit_Date, person, relationship);
+        return new Visit(visit_id, visit_Date, name, relationship);
 
     }
 
@@ -581,9 +743,9 @@ public class Prision {
     public static Visit automaticVisitCreator() {
         int id = ThreadLocalRandom.current().nextInt(1, 500);
         Date date = automaticPastDateCreator();
-        Person person = automaticPersonCreator();
+        String name = autoNameSelector();
         String relationship = automaticRelationShipCreator();
-        return new Visit(id, date, person, relationship);
+        return new Visit(id, date, name, relationship);
     }
 
     public static Inmate automaticInmateCreator() {
@@ -591,7 +753,7 @@ public class Prision {
         Date born_date;
         Date entrance_date;
         Date exit_date;
-        boolean status;
+        String status;
         String felony = autoFelonySelector();
         ArrayList<Visit> visits = new ArrayList<>();
         String name = autoNameSelector();
@@ -611,9 +773,9 @@ public class Prision {
         }
 
         if (exit_date.getYear() > VirtualTime.getVitualGlobalDate().getYear()) {
-            status = true;
+            status = "active";
         } else {
-            status = false;
+            status = "inactive";
         }
 
         //for every year the inmate has been in priosn im goin to make it so that 

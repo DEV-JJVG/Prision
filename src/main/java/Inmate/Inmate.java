@@ -19,14 +19,22 @@ public class Inmate extends Person {
     protected Date entrance_date;
     protected Date exit_date;
     //true means he is currently being held
-    protected boolean status;
+    protected String status;
     protected String felony;
-    boolean reoffending = false;
     ArrayList<Visit> visits;
 
-    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony,
+    public Inmate(Date entrance_date, Date exit_date, String status, String felony,
             ArrayList<Visit> visits, String name, Date born_date) throws InvalidAgeException {
         super(name, born_date);
+        setEntrance_date(entrance_date);
+        setExit_date(exit_date);
+        setStatus(status);
+        setFelony(felony);
+        setVisits(visits);
+    }
+    public Inmate(Date entrance_date, Date exit_date, String status, 
+            String name, Date born_date, int id) throws InvalidAgeException {
+        super(name, born_date, id);
         setEntrance_date(entrance_date);
         setExit_date(exit_date);
         setStatus(status);
@@ -36,14 +44,13 @@ public class Inmate extends Person {
 
     //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
     //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
-    public Inmate(Date entrance_date, Date exit_date, boolean status, String felony, boolean reoffending,
+    public Inmate(Date entrance_date, Date exit_date, String status, String felony,
             ArrayList<Visit> visits, String name, Date born_date, int id) throws InvalidAgeException {
         super(name, born_date, id);
         setEntrance_date(entrance_date);
         setExit_date(exit_date);
         setStatus(status);
         setFelony(felony);
-        setReoffending(reoffending);
         setVisits(visits);
     }
 
@@ -59,17 +66,17 @@ public class Inmate extends Person {
         return exit_date;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
+
+   
 
     public String getFelony() {
         return felony;
     }
 
-    public boolean isReoffending() {
-        return reoffending;
-    }
+
 
     public ArrayList<Visit> getVisits() {
         return visits;
@@ -100,7 +107,7 @@ public class Inmate extends Person {
         }
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -112,9 +119,7 @@ public class Inmate extends Person {
         }
     }
 
-    public void setReoffending(boolean reoffending) {
-        this.reoffending = reoffending;
-    }
+
 
     public void setVisits(ArrayList<Visit> visits) {
         this.visits = visits;
@@ -134,13 +139,7 @@ public class Inmate extends Person {
         phrase += "Inmate called " + getName() + " witch ID is " + getId() + " of age " + getAge()
                 + "\nIt was introduced in " + getEntrance_date();
 
-        if (isReoffending()) {
-            phrase += "\nIt is a reoffending, ";
-        } else {
-            phrase += "\nIt is not a reoffending, ";
-        }
-
-        if (isStatus()) {
+        if (getStatus().equalsIgnoreCase("active")) {
             phrase += "it is currently being held and he will be release " + getExit_date();
         } else {
             phrase += "it is not currently being held and was realised " + getExit_date();
@@ -151,7 +150,7 @@ public class Inmate extends Person {
 
         if (getVisits().size() > 0) {
             for (Visit visit : getVisits()) {
-                phrase += "\n" + visit.getVisitor().getName();
+                phrase += "\n" + visit.getVisitor();
             }
         } else {
             phrase += "no one";

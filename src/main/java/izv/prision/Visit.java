@@ -14,18 +14,32 @@ public class Visit {
 
     private int visit_Id;
     private Date visit_Date;
-    private Person visitor;
+    private String visitor;
     private String relationship;
+    public int inmate_ID;
 
-    public Visit(Date visit_Date, int inmate_id, Person visitor, String relationship) {
+
+    public Visit(Date visit_Date, String visitor, String relationship, int inmate_ID) {
+        setVisit_Date(visit_Date);
+        setVisitor(visitor);
+        setRelationship(relationship);
+        this.inmate_ID = inmate_ID;
+    }
+    public Visit(Date visit_Date, String visitor, String relationship) {
         setVisit_Date(visit_Date);
         setVisitor(visitor);
         setRelationship(relationship);
     }
-
     //ATETION NEVER USE THIS CONTRUTOR, THE ID MUST BE AN AUTOINCREMENT
     //PLEASE DONT USE THIS THING IS FOR TESTS ONLY
-    public Visit(int visit_Id, Date visit_Date, Person visitor, String relationship) {
+    public Visit(int visit_Id, Date visit_Date, String visitor, String relationship, int inmate_ID) {
+        this.visit_Id = visit_Id;
+        setVisit_Date(visit_Date);
+        setVisitor(visitor);
+        setRelationship(relationship);
+        this.inmate_ID = inmate_ID;
+    }
+    public Visit(int visit_Id, Date visit_Date, String visitor, String relationship) {
         this.visit_Id = visit_Id;
         setVisit_Date(visit_Date);
         setVisitor(visitor);
@@ -47,13 +61,19 @@ public class Visit {
         return visit_Date;
     }
 
-    public Person getVisitor() {
+    public String getVisitor() {
         return visitor;
     }
 
     public String getRelationship() {
         return relationship;
     }
+
+    public int getInmate_ID() {
+        return inmate_ID;
+    }
+    
+    
 
 
     //
@@ -65,7 +85,7 @@ public class Visit {
         this.visit_Date = visit_Date;
     }
 
-    public void setVisitor(Person visitor) {
+    public void setVisitor(String visitor) {
         this.visitor = visitor;
     }
 
@@ -87,7 +107,8 @@ public class Visit {
     @Override
     public String toString() {
         return "the visit was made in " + getVisit_Date() + " its id is " + getVisit_Id() + 
-                ", the visitor was " + getVisitor().getName() + " and their relationship is:\n" + getRelationship();
+                ", the visitor was " + getVisitor() + " and their relationship is: " + getRelationship()
+                + "\nthe inmate ID was: " + getInmate_ID();
     }
     
 
