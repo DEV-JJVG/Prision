@@ -7,7 +7,6 @@ package Guardias;
 import Exception.InvalidAgeException;
 import izv.prision.Person;
 import java.util.Date;
-import java.util.HashMap;
 
 /**
  *
@@ -15,25 +14,58 @@ import java.util.HashMap;
  */
 public class Guard extends Person implements MandatoryTasks {
 
-    enum CARGO {
+    public enum CARGO {
         director,
         subdirector,
         securityCheif,
         captain,
         liutenant,
         sargeant,
-        oficer,
+        official,
 
     }
+    
+    private CARGO cargo;
 
-    public Guard(String name, Date born_date) throws InvalidAgeException {
+    public Guard(String name, Date born_date, CARGO cargo) throws InvalidAgeException {
         super(name, born_date);
     }
+
+    public Guard(CARGO cargo, String name, Date born_date, int id) throws InvalidAgeException {
+        super(name, born_date, id);
+        setCargo(cargo);
+    }
+    
     //getters
+    public CARGO getCargo() {
+        return cargo;
+    }    
 
     //
     //
     //
     //
     //setters
+
+    public void setCargo(CARGO cargo) {
+        this.cargo = cargo;
+    }
+    
+    //
+    //
+    //
+    //methods
+    
+    //
+    //
+    //
+    //toString
+
+    @Override
+    public String toString() {
+        return "the guard named: " + getName() + " is a " + getCargo() +
+                "\nit was born in " + getBorn_date() + " and its ID is " + getId(); 
+    }
+    
+
 }
