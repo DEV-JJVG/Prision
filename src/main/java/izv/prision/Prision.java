@@ -5,6 +5,7 @@
 package izv.prision;
 
 import Exception.InvalidAgeException;
+import Exception.InvalityCapacityException;
 import Guardias.Guard;
 import Guardias.Guard.CARGO;
 import Inmate.Inmate;
@@ -22,9 +23,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +39,8 @@ public class Prision {
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        menu();
+        mainMenu();
+        input.close();
     }
 
     /*
@@ -55,56 +60,57 @@ public class Prision {
     
      */
     //normal funtions
-    //here there will be oall the funtions normaly used in the program
-    public static void menu() {
-        boolean menuIncorrecto = true;
+    //here there will be all the funtions normaly used in the program
+    public static void mainMenu() {
+        boolean workning = true;
         int opcion;
-        while (menuIncorrecto) {
-            System.out.println("=== MAIN MENU ===");
+        while (workning) {
+            System.out.println("\n\n=== MAIN MENU ===");
             System.out.println("1. Use current prison");
-            System.out.println("2. make a new prison");
+            System.out.println("2. justs add into data base");
             System.out.println("3. exit");
             System.out.print("Choose typing a number: ");
             opcion = userInput();;
-            // Validación de entrada
 
             switch (opcion) {
                 case 1:
                     mainPrisonWork();
                     break;
                 case 2:
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new InmateInterface().setVisible(true);
-                        }
-                    });
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new PrisonInterface().setVisible(true);
-                        }
-                    });
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new GuardInterface().setVisible(true);
-                        }
-                    });
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new VisitationInterface().setVisible(true);
-                        }
-                    });
+                    userInterface();
                     break;
                 case 3:
                     System.out.println("exiting program");
-                    menuIncorrecto = false;
+                    workning = false;
                     break;
                 default:
                     System.out.println("choose betewing 1 and 3");
             }
-
-            System.out.println(); // Línea en blanco para separación
         }
 
+    }
+
+    public static void userInterface() {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new InmateInterface().setVisible(true);
+            }
+        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new PrisonInterface().setVisible(true);
+            }
+        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GuardInterface().setVisible(true);
+            }
+        });
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new VisitationInterface().setVisible(true);
+            }
+        });
     }
 
     public static int userInput() {
@@ -116,16 +122,411 @@ public class Prision {
                 rightNumber = false;
             } catch (InputMismatchException e) {
                 System.out.println("you must put a full number");
+                input.nextLine();
             }
         }
         return number;
     }
 
+    public static String userInputstring() {
+        String string = "";
+        boolean rightString = true;
+        while (rightString) {
+            try {
+                string = input.nextLine();
+                if (!string.isBlank() || !string.isEmpty()) {
+                    rightString = false;
+                } else {
+                    System.out.println("you must enter something in to the String");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("you must put a String");
+                input.nextLine();
+            }
+        }
+        return string;
+    }
+
     public static void mainPrisonWork() {
         ArrayList<Inmate> inmates = obtainAllInmates();
         ArrayList<Guard> guards = obtainAllGuards();
+        ArrayList<Prison> prisons = obtainAllPrisons();
 
+        boolean workning = true;
+        int opcion;
+        while (workning) {
+            //I´m going to put a menu here for the user to choose what to use and modify
+            System.out.println("\n\nwhat would you like to modify?");
+            System.out.println("1. inmates");
+            System.out.println("2. guards");
+            System.out.println("3. prisons");
+            System.out.println("4. exit");
 
+            opcion = userInput();
+
+            switch (opcion) {
+                case 1:
+                    workInmates(inmates);
+                    break;
+                case 2:
+                    workGuards(guards);
+                    break;
+                case 3:
+                    workPrison(prisons);
+                    break;
+                case 4:
+                    System.out.println("exiting working station...");
+                    System.out.println("hoing back to the main menu...");
+                    workning = false;
+                    break;
+                default:
+                    System.out.println("choose betewing 1 and 4");
+            }
+        }
+
+    }
+
+    public static void workInmates(ArrayList<Inmate> inmates) {
+        boolean workning = true;
+        int opcion;
+        while (workning) {
+            System.out.println("\n\n what would you like to do");
+            System.out.println("1. see the inmates");
+            System.out.println("2. see someone visits");
+            System.out.println("3. add inmates");
+            System.out.println("4. release inmates or put back in");
+            System.out.println("5. add visits to someone");
+            System.out.println("6. Change name of some inmate");
+            System.out.println("7. exit inmates work station");
+            opcion = userInput();;
+            switch (opcion) {
+                case 1:
+                    showInmates(inmates);
+                    break;
+
+                case 2:
+                    System.out.println("choose who will you see the visits of \n(type the id)");
+                    showInmatesNameId(inmates);
+                    int inmateId = userInput();
+                    int[] ids = new int[inmates.size()];
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = inmates.get(i).getId();
+                    }
+                    if (containsInt(ids, inmateId)) {
+                        showVisits(findInmateById(inmates, inmateId).getVisits());
+                    } else {
+                        System.out.println("you selected no one");
+                    }
+                    break;
+
+                case 3:
+                    //here i will just put the interface to add the inmates
+
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new InmateInterface().setVisible(true);
+                        }
+                    });
+                    break;
+
+                case 4:
+                    System.out.println("choose who will you release or put back in \n(type the id)");
+                    showInmatesNameStatusId(inmates);
+                    inmateId = userInput();
+                    ids = new int[inmates.size()];
+
+                    //I have to asing this again because there might have been a change in the list
+                    //therefore its safer to do this again
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = inmates.get(i).getId();
+                    }
+                    if (containsInt(ids, inmateId)) {
+                        if (findInmateById(inmates, inmateId).getStatus().equals("active")) {
+                            alterStatusinmate(findInmateById(inmates, inmateId), inmateId);
+                            findInmateById(inmates, inmateId).setStatus("free");
+                            System.out.println(findInmateById(inmates, inmateId).getName() + " was released");
+                        } else {
+                            alterStatusinmate(findInmateById(inmates, inmateId), inmateId);
+                            findInmateById(inmates, inmateId).setStatus("active");
+                            System.out.println(findInmateById(inmates, inmateId).getName() + " was put back in prison");
+                        }
+                    }
+                    break;
+
+                case 5:
+
+                    //here i just need to put the interface for visit
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new VisitationInterface().setVisible(true);
+                        }
+                    });
+                    break;
+
+                case 6:
+                    System.out.println("choose who will you be changing the name of\n(type the id)");
+                    showInmatesNameId(inmates);
+                    inmateId = userInput();
+                    ids = new int[inmates.size()];
+
+                    //I have to asing this again because there might have been a change in the list
+                    //therefore its safer to do this again
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = inmates.get(i).getId();
+                    }
+                    if (containsInt(ids, inmateId)) {
+                        System.out.println("type a new name");
+                        String newName = userInputstring();
+                        alterInmateName(inmateId, newName);
+                        findInmateById(inmates, inmateId).setName(newName);
+                        System.out.println("the 'new' inmate\n" + findInmateById(inmates, inmateId));
+                    }
+                    break;
+
+                case 7:
+
+                    System.out.println("going back to the menu...");
+                    workning = false;
+                    break;
+
+                default:
+
+                    System.out.println("choose betewing 1 and 6");
+                    break;
+            }
+        }
+
+    }
+
+    public static void workGuards(ArrayList<Guard> guards) {
+        boolean workning = true;
+        int opcion;
+        while (workning) {
+            System.out.println("\n\n what would you like to do");
+            System.out.println("1. see the guards");
+            System.out.println("2. add guards");
+            System.out.println("3. change someone name");
+            System.out.println("4. change someone position");
+            System.out.println("5. exit guards working station");
+            opcion = userInput();;
+
+            switch (opcion) {
+                case 1:
+                    showGuards(guards);
+                    break;
+
+                case 2:
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new GuardInterface().setVisible(true);
+                        }
+                    });
+                    break;
+
+                case 3:
+                    System.out.println("Choose who tou will be chainging the name of");
+                    showGuardsNameId(guards);
+                    int guard_ID = userInput();
+                    int[] ids = new int[guards.size()];
+
+                    //I have to asing this again because there might have been a change in the list
+                    //therefore its safer to do this again
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = guards.get(i).getId();
+                    }
+                    if (containsInt(ids, guard_ID)) {
+                        System.out.println("type a new name");
+                        String newName = userInputstring();
+                        alterGuardName(guard_ID, newName);
+                        findGuardById(guards, guard_ID).setName(newName);
+                        System.out.println("the 'new' guard\n" + findGuardById(guards, guard_ID));
+                    }
+                    break;
+
+                case 4:
+
+                    System.out.println("Choose who tou will be chainging the position of");
+                    showGuardsNamePositionId(guards);
+                    guard_ID = userInput();
+                    ids = new int[guards.size()];
+
+                    //I have to asing this again because there might have been a change in the list
+                    //therefore its safer to do this again
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = guards.get(i).getId();
+                    }
+                    if (containsInt(ids, guard_ID)) {
+                        boolean rightPosition = true;
+                        while (rightPosition) {
+                            System.out.println("choose the new position");
+                            System.out.println("1. Director");
+                            System.out.println("2. Subdirector");
+                            System.out.println("3. SecurityChief");
+                            System.out.println("4. Captain");
+                            System.out.println("5. Liutenant");
+                            System.out.println("6. Sergeant");
+                            System.out.println("7. Official");
+
+                            int position = userInput();
+                            switch (position) {
+
+                                case 1:
+                                    alterPositionGuard(guard_ID, "director");
+                                    findGuardById(guards, guard_ID).setCargo(CARGO.director);
+                                    rightPosition = false;
+                                    break;
+
+                                case 2:
+                                    alterPositionGuard(guard_ID, "subdirector");
+                                    findGuardById(guards, guard_ID).setCargo(CARGO.subdirector);
+                                    rightPosition = false;
+                                    break;
+
+                                case 3:
+                                    alterPositionGuard(guard_ID, "security Cheif");
+                                    findGuardById(guards, guard_ID).setCargo(CARGO.securityCheif);
+                                    rightPosition = false;
+                                    break;
+
+                                case 4:
+                                    alterPositionGuard(guard_ID, "captain");
+                                    findGuardById(guards, guard_ID).setCargo(CARGO.captain);
+                                    rightPosition = false;
+                                    break;
+
+                                case 5:
+                                    alterPositionGuard(guard_ID, "liutenant");
+                                    findGuardById(guards, guard_ID).setCargo(CARGO.liutenant);
+                                    rightPosition = false;
+                                    break;
+
+                                case 6:
+                                    alterPositionGuard(guard_ID, "sargeant");
+                                    findGuardById(guards, guard_ID).setCargo(CARGO.sargeant);
+                                    rightPosition = false;
+                                    break;
+
+                                case 7:
+                                    alterPositionGuard(guard_ID, "official");
+                                    findGuardById(guards, guard_ID).setCargo(CARGO.official);
+                                    rightPosition = false;
+                                    break;
+
+                                default:
+
+                                    System.out.println("type a number betweeng 1 and 7");
+                                    break;
+
+                            }
+                            System.out.println(findGuardById(guards, guard_ID).getName() + " is now a "
+                                    + findGuardById(guards, guard_ID).getCargo().name());
+                        }
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("exiting guards");
+                    workning = false;
+                    break;
+                default:
+                    System.out.println("choose betewing 1 and 5");
+            }
+        }
+    }
+
+    public static void workPrison(ArrayList<Prison> prisons) {
+        boolean workning = true;
+        int opcion;
+        while (workning) {
+            System.out.println("\n\n what would you like to do");
+            System.out.println("1. see the guards");
+            System.out.println("2. see the guards of 1 prison");
+            System.out.println("3. see the inmates of 1 prison");
+            System.out.println("4. change the number of inmates");
+            System.out.println("5. add a new prison");
+            System.out.println("6. exit prison workstation");
+            
+
+            opcion = userInput();;
+
+            switch (opcion) {
+                case 1:
+                    showPrisons(prisons);
+                    break;
+
+                case 2:
+                    System.out.println("choose a prison\n(type the id)");
+                    showPrisonsNameId(prisons);
+                    int Id = userInput();
+                    int[] ids = new int[prisons.size()];
+
+                    //I have to asing this again because there might have been a change in the list
+                    //therefore its safer to do this again
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = prisons.get(i).getPrisonID();
+                    }
+
+                    if (containsInt(ids, Id)) {
+                        showMapGuards(findPrisonById(prisons, Id).getGuards());
+                    }
+
+                    break;
+                case 3:
+                    System.out.println("choose a prison\n(type the id)");
+                    showPrisonsNameId(prisons);
+                    Id = userInput();
+                    ids = new int[prisons.size()];
+
+                    //I have to asing this again because there might have been a change in the list
+                    //therefore its safer to do this again
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = prisons.get(i).getPrisonID();
+                    }
+
+                    if (containsInt(ids, Id)) {
+                        showInmates(findPrisonById(prisons, Id).getInmates());
+                    }
+                    break;
+
+                case 4:
+
+                    System.out.println("choose a prison\n(type the id)");
+                    showPrisonsNameId(prisons);
+                    Id = userInput();
+                    ids = new int[prisons.size()];
+
+                    //I have to asing this again because there might have been a change in the list
+                    //therefore its safer to do this again
+                    for (int i = 0; i < ids.length; i++) {
+                        ids[i] = prisons.get(i).getPrisonID();
+                    }
+
+                    if (containsInt(ids, Id)) {
+                        System.out.println("choose the amount of inmates you want");
+                        int numberOfInmates = userInput();
+                        if (numberOfInmates > 0 && numberOfInmates < findPrisonById(prisons, Id).getCapacity()) {
+                            alterInmatesAmountPrison(Id, numberOfInmates);
+                        }
+                    }
+                    break;
+
+                case 5:
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new PrisonInterface().setVisible(true);
+                        }
+                    });
+                    break;
+                    
+                case 6: 
+                    System.out.println("exiting guards...");
+                    workning = false;
+                    break;
+                default:
+
+                    break;
+            }
+        }
     }
 
     public static Connection connect() throws SQLException {
@@ -136,6 +537,7 @@ public class Prision {
         return DriverManager.getConnection(url, user, password);
     }
 
+    //this 3 funtions just extract all the information from the data base
     public static ArrayList<Inmate> obtainAllInmates() {
         ArrayList<Inmate> inmates = new ArrayList<>();
 
@@ -150,7 +552,6 @@ public class Prision {
 
             ArrayList<Visit> allVisits = new ArrayList<>();
             while (res.next()) {
-                System.out.println(res.getInt("inmate_ID"));
                 allVisits.add(new Visit(
                         res.getInt("visitation_ID"),
                         res.getDate("visitation_date"),
@@ -187,6 +588,7 @@ public class Prision {
                 }
             }
 
+            //remember to close every thing to save trash
             res.close();
             rs.close();
             stmtInmates.close();
@@ -220,6 +622,7 @@ public class Prision {
                 }
             }
 
+            //remember to close every thing to save trash
             rs.close();
             stmt.close();
             conn.close();
@@ -228,6 +631,259 @@ public class Prision {
             System.out.println("Database error: " + e.getMessage());
         }
         return guards;
+    }
+
+    public static ArrayList<Prison> obtainAllPrisons() {
+        ArrayList<Prison> prisons = new ArrayList<>();
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `prison`");
+
+            while (rs.next()) {
+
+                prisons.add(new Prison(
+                        rs.getInt("prison_ID"),
+                        rs.getString("name"),
+                        rs.getString("location"),
+                        rs.getInt("capacity"),
+                        automaticArrayInmateCreator(rs.getInt("number_of_inmates")),
+                        automaticMapGuardCreator(rs.getInt("capacity"))
+                ));
+            }
+            //remember to close every thing to save trash
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        } catch (InvalityCapacityException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return prisons;
+    }
+
+    //here there will be the shows
+    public static void showInmates(ArrayList<Inmate> inmates) {
+        for (Inmate inmate : inmates) {
+            System.out.println(inmate);
+        }
+    }
+
+    public static void showInmatesNameId(ArrayList<Inmate> inmates) {
+        for (Inmate inmate : inmates) {
+            System.out.println(inmate.getIdPlusName());
+        }
+    }
+
+    public static void showInmatesNameStatusId(ArrayList<Inmate> inmates) {
+        for (Inmate inmate : inmates) {
+            System.out.println(inmate.getStatusNameId());
+        }
+    }
+
+    public static void showGuards(ArrayList<Guard> guards) {
+        for (Guard guard : guards) {
+            System.out.println(guard);
+        }
+    }
+
+    public static void showGuardsNameId(ArrayList<Guard> guards) {
+        for (Guard guard : guards) {
+            System.out.println(guard.getIdPlusName());
+        }
+    }
+
+    public static void showGuardsNamePositionId(ArrayList<Guard> guards) {
+        for (Guard guard : guards) {
+            System.out.println(guard.getNamePositioId());
+        }
+    }
+
+    public static void showMapGuards(HashMap<Guard, Integer> guards) {
+        for (Guard guard : guards.keySet()) {
+            Integer randomValue = guards.get(guard);
+            System.out.println(guard + "\nsalary: " + randomValue);
+        }
+    }
+
+    public static void showVisits(ArrayList<Visit> visits) {
+        for (Visit visit : visits) {
+            System.out.println(visit);
+        }
+    }
+
+    public static void showPrisons(ArrayList<Prison> prisons) {
+        for (Prison prison : prisons) {
+            System.out.println(prison);
+        }
+    }
+
+    public static void showPrisonsNameId(ArrayList<Prison> prisons) {
+        for (Prison prison : prisons) {
+            System.out.println(prison.getNameid());
+        }
+    }
+
+    //here there will be funtions that will just check differents things
+    //this check if in array of int there is a specific number,
+    //this is mainly used to check ids
+    public static boolean containsInt(int[] array, int number) {
+        if (array == null) {
+            return false;
+        }
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == number) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //here there will be funtions that find things in lists
+    //this funtion return an inmate when given an id
+    public static Inmate findInmateById(ArrayList<Inmate> lista, int valorBuscado) {
+        if (lista == null) {
+            return null;
+        }
+        for (int i = 0; i < lista.size(); i++) {
+            Inmate inmate = lista.get(i);
+            if (inmate.getId() == valorBuscado) {
+                return inmate;
+            }
+        }
+        return null;
+    }
+
+    public static Guard findGuardById(ArrayList<Guard> guards, int valorBuscado) {
+        if (guards == null) {
+            return null;
+        }
+        for (int i = 0; i < guards.size(); i++) {
+            Guard guard = guards.get(i);
+            if (guard.getId() == valorBuscado) {
+                return guard;
+            }
+        }
+        return null;
+    }
+
+    public static Prison findPrisonById(ArrayList<Prison> prisons, int valorBuscado) {
+        if (prisons == null) {
+            return null;
+        }
+        for (int i = 0; i < prisons.size(); i++) {
+            Prison prison = prisons.get(i);
+            if (prison.getPrisonID() == valorBuscado) {
+                return prison;
+            }
+        }
+        return null;
+    }
+
+    //here there will be the funtions that ALTER the databse
+    public static void alterStatusinmate(Inmate inmate, int inmateId) {
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            // Solo actualizamos si el estado actual es "active"
+            if (inmate.getStatus().equalsIgnoreCase("active")) {
+                // executeUpdate en lugar de executeQuery para sentencias UPDATE
+                stmt.executeUpdate(
+                        "UPDATE `inmate` "
+                        + "SET `status` = 'free' "
+                        + "WHERE `inmate_ID` = " + inmateId + ";"
+                );
+            } else {
+                int filasAfectadas = stmt.executeUpdate(
+                        "UPDATE `inmate` "
+                        + "SET `status` = 'active' "
+                        + "WHERE `inmate_ID` = " + inmateId + ";"
+                );
+            }
+
+            // Cerramos recursos
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
+
+    public static void alterInmateName(int id, String name) {
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            stmt.executeUpdate(
+                    "UPDATE `inmate` "
+                    + "SET `name` = '" + name + "' "
+                    + "WHERE `inmate_ID` = " + id + ";"
+            );
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
+
+    public static void alterGuardName(int id, String name) {
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            stmt.executeUpdate(
+                    "UPDATE `guard` "
+                    + "SET `name` = '" + name + "' "
+                    + "WHERE `guard_ID` = " + id + ";"
+            );
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
+
+    public static void alterPositionGuard(int id, String position) {
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            stmt.executeUpdate(
+                    "UPDATE guard SET position = '" + position + "' WHERE guard_id = " + id
+            );
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
+    }
+
+    public static void alterInmatesAmountPrison(int id, int amount) {
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            stmt.executeUpdate(
+                    "UPDATE prison SET number_of_inmates = '" + amount + "' WHERE prison_ID = " + id
+            );
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database error: " + e.getMessage());
+        }
     }
 
     /*
@@ -245,18 +901,6 @@ public class Prision {
     //and are only meantto be used by the programer
     //the will be call manual to make clear what they do, other similar funtions
     //meants for the user will be call "user______" and will be put in the section above.
-    public static Cell manualCellcreation() {
-        System.out.println("int cellID, Integer cellNumber, String location, Integer CellCapacity");
-        int cellID = input.nextInt();
-        int cellNumber = input.nextInt();
-        input.nextLine();
-        String location = input.nextLine();
-        int cellCapacity = input.nextInt();
-        Cell cell = new Cell(cellID, cellNumber, location, cellCapacity);
-        System.out.println(cell);
-        return cell;
-    }
-
     public static void manualPersonCreator() {
         System.out.println("String name, Date born_date (dd/MM/yyyy), int id");
         String name = input.nextLine();
@@ -748,6 +1392,38 @@ public class Prision {
         return new Visit(id, date, name, relationship);
     }
 
+    public static Guard automaticGuardCreator() {
+        String[] cargos = {"director",
+            "subdirector",
+            "securityCheif",
+            "captain",
+            "liutenant",
+            "sargeant",
+            "official"
+        };
+        String cargo = cargos[ThreadLocalRandom.current().nextInt(0, 7)];
+        String name = autoNameSelector();
+        Date born_date = automaticPastDateCreator();
+        Guard guard = null;
+        try {
+            guard = new Guard(CARGO.valueOf(cargo), name, born_date);
+        } catch (InvalidAgeException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return guard;
+    }
+
+    public static HashMap<Guard, Integer> automaticMapGuardCreator(int capacity) {
+        HashMap<Guard, Integer> guardMap = new HashMap<>();
+        for (int i = 1; i <= capacity / 6; i++) {
+            Guard guard = automaticGuardCreator();
+            guard.setId(i);
+            int randomValue = ThreadLocalRandom.current().nextInt(2000, 9001); // 9001 porque el límite superior es exclusivo
+            guardMap.put(guard, randomValue);
+        }
+        return guardMap;
+    }
+
     public static Inmate automaticInmateCreator() {
         Inmate inmate = null;
         Date born_date;
@@ -789,8 +1465,20 @@ public class Prision {
         try {
             inmate = new Inmate(entrance_date, exit_date, status, felony, visits, name, born_date);
         } catch (InvalidAgeException ex) {
-            System.out.println(ex.getMessage());
+
         }
         return inmate;
+    }
+
+    public static ArrayList<Inmate> automaticArrayInmateCreator(int number_of_inmates) {
+        ArrayList<Inmate> inmates = new ArrayList<>();
+        for (int i = 0; i < number_of_inmates; i++) {
+            Inmate inmate = automaticInmateCreator();
+            if (inmate != null) {
+                inmate.setId(i);
+            }
+            inmates.add(inmate);
+        }
+        return inmates;
     }
 }
