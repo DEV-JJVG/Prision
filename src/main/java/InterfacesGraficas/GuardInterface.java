@@ -9,7 +9,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -153,23 +157,27 @@ public class GuardInterface extends javax.swing.JPanel {
     }
     private void submitGuardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitGuardButtonActionPerformed
 
-        // Obtener los valores de las fecha
+        // Obtaining the values from the Dates converted to Strings by parsing them
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
-        String guard_bornDate = dateFormat.format(addGuardBornDate.getText());
-
-        // Obtener los valores de la interfaz gráfica
+        try {
+            Date guard_bornDate = dateFormat.parse(addGuardBornDate.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(GuardInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Obtaining the values from the GUI
         String guardName = addGuardName.getText();
         String guardPosition = (String) positionComboBox.getSelectedItem();
 
-        // Sentencia SQL para insertar los datos en la base de datos
+        // SQL sentence
         String sql = "INSERT INTO guard (name, position) VALUES (?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Establecer los parámetros de la consulta
+            // Stablishing the parameters of the query creating a PreparedStatement
             stmt.setString(1, guardName);
             stmt.setString(2, guardPosition);
-            // Ejecutar la consulta
+
+            // Executing de query
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -178,7 +186,7 @@ public class GuardInterface extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Failed to insert prison", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
-            // Manejo de errores de base de datos
+            // Handling Exceptions
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
