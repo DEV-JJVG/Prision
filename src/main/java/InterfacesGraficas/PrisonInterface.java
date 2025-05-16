@@ -192,28 +192,32 @@ public class PrisonInterface extends javax.swing.JFrame {
         int numberOfInmates = Integer.parseInt(prisonField4.getText());
 
         // SQL sentence
-        String sql = "INSERT INTO prison (name, location, capacity, number_of_inmates) VALUES (?, ?, ?, ?)";
+        if (capacity > numberOfInmates) {
+            String sql = "INSERT INTO prison (name, location, capacity, number_of_inmates) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Stablishing the parameters of the query creating a PreparedStatement
-            stmt.setString(1, prisonName);
-            stmt.setString(2, location);
-            stmt.setInt(3, capacity);
-            stmt.setInt(4, numberOfInmates);
+            try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Stablishing the parameters of the query creating a PreparedStatement
+                stmt.setString(1, prisonName);
+                stmt.setString(2, location);
+                stmt.setInt(3, capacity);
+                stmt.setInt(4, numberOfInmates);
 
-            // Executing the query
-            int rowsAffected = stmt.executeUpdate();
+                // Executing the query
+                int rowsAffected = stmt.executeUpdate();
 
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Prison inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to insert prison", "Error", JOptionPane.ERROR_MESSAGE);
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(this, "Prison inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to insert prison", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                //Handling Exceptions
+            } catch (SQLException e) {
+                // Manejo de errores de base de datos
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            //Handling Exceptions
-        } catch (SQLException e) {
-            // Manejo de errores de base de datos
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            System.out.println("the number of inmates cant be bigger than the capacity");
         }
     }//GEN-LAST:event_submitPrisonButtonActionPerformed
 
