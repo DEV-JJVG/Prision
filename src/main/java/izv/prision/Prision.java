@@ -29,6 +29,7 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
@@ -90,25 +91,34 @@ public class Prision {
 
     }
 
-    public static void userInterface() {
+    public static void userInterface(String interfaceType) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new InmateInterface().setVisible(true);
-            }
-        });
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrisonInterface().setVisible(true);
-            }
-        });
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GuardInterface().setVisible(true);
-            }
-        });
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VisitationInterface().setVisible(true);
+                JFrame frame = new JFrame(interfaceType + " Interface");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+                // Crear una instancia de la interfaz adecuada
+                switch (interfaceType) {
+                    case "Guard":
+                        frame.add(new GuardInterface());
+                        break;
+                    case "Visitation":
+                        frame.add(new VisitationInterface());
+                        break;
+                    case "Prison":
+                        frame.add(new PrisonInterface());
+                        break;
+                    case "Inmate":
+                        frame.add(new InmateInterface());
+                        break;
+                    default:
+                        throw new IllegalArgumentException("Unknown interface type: " + interfaceType);
+                }
+
+                // Ajustar el tamaño del JFrame
+                frame.pack();
+                frame.setVisible(true);
             }
         });
     }
@@ -445,7 +455,6 @@ public class Prision {
             System.out.println("4. change the number of inmates");
             System.out.println("5. add a new prison");
             System.out.println("6. exit prison workstation");
-            
 
             opcion = userInput();;
 
@@ -517,8 +526,8 @@ public class Prision {
                         }
                     });
                     break;
-                    
-                case 6: 
+
+                case 6:
                     System.out.println("exiting guards...");
                     workning = false;
                     break;
