@@ -31,6 +31,12 @@ public class Guard extends Person implements MandatoryTasks {
         super(name, born_date);
     }
 
+    public Guard(CARGO cargo, String name, Date born_date) throws InvalidAgeException {
+        super(name, born_date);
+        this.cargo = cargo;
+    }
+
+    
     public Guard(CARGO cargo, String name, Date born_date, int id) throws InvalidAgeException {
         super(name, born_date, id);
         setCargo(cargo);
@@ -40,6 +46,11 @@ public class Guard extends Person implements MandatoryTasks {
     public CARGO getCargo() {
         return cargo;
     }    
+    
+    public String getNamePositioId(){
+       return getName() + " is a " + getCargo().name() + " and its Id is: " + getId(); 
+    }
+    
 
     //
     //

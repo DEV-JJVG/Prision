@@ -51,6 +51,10 @@ public class Person {
     public int getAge(){
         return VirtualTime.getVitualGlobalDate().getYear() - born_date.getYear();
     }
+    
+    public String getIdPlusName(){
+        return getName() + ": " + getId();
+    } 
 
     //
     //

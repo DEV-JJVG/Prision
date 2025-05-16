@@ -85,6 +85,10 @@ public class Inmate extends Person {
     public int getTimeInPrison() {
         return getExit_date().getYear() - getEntrance_date().getYear();
     }
+    
+    public String getStatusNameId(){
+        return getName() + ": " + getStatus() + " and its id is: " + getId();
+    }
 
     //
     //
@@ -135,14 +139,14 @@ public class Inmate extends Person {
     //toString
     @Override
     public String toString() {
-        String phrase = "";
+        String phrase = "\n\n\n-------------\n\n";
         phrase += "Inmate called " + getName() + " witch ID is " + getId() + " of age " + getAge()
                 + "\nIt was introduced in " + getEntrance_date();
 
         if (getStatus().equalsIgnoreCase("active")) {
-            phrase += "it is currently being held and he will be release " + getExit_date();
+            phrase += "it is currently being held and he will be release\n " + getExit_date();
         } else {
-            phrase += "it is not currently being held and was realised " + getExit_date();
+            phrase += "it is not currently being held";
         }
 
         phrase += "(Time in prison: " + getTimeInPrison() + ")\nIt was sentences for:\n"

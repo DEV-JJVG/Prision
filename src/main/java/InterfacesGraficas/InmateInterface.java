@@ -251,7 +251,7 @@ public class InmateInterface extends javax.swing.JFrame {
             String crime = addfelonyDescr.getText();
 
             // SQL sentence
-            String sql = "INSERT INTO inmate (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO inmate (name, born_date, inserction_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
 
             try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
                 // Stablishing the parameters of the query creating a PreparedStatement
