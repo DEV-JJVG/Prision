@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -223,7 +225,7 @@ public class InmateInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_addBornDateActionPerformed
     public static Connection connect() throws SQLException {
         //Realizing the connection to the database
-        String url = "jdbc:mysql://localhost:3306/prison";
+        String url = "jdbc:mysql://localhost:3306/prision";
         String user = "root";
         String password = "";
 
@@ -237,40 +239,44 @@ public class InmateInterface extends javax.swing.JFrame {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
 
-        // Obtaining the values from the Dates converted to Strings
-        String bornDate = dateFormat.format(addBornDate.getText());
-        String entranceDate = dateFormat.format(addEntranceDate.getText());
-        String exitDate = dateFormat.format(addExitDate.getText());
+        // Obtaining the values from the Dates converted to Strings by parsing them
+        try {
+            Date bornDate = dateFormat.parse(addBornDate.getText());
+            Date entranceDate = dateFormat.parse(addEntranceDate.getText());
+            Date exitDate = dateFormat.parse(addExitDate.getText());
 
-        // Obtaining the values from the GUI
-        String name = addInmateName.getText();
-        String status = (String) estatusComboBox.getSelectedItem();
-        String crime = addfelonyDescr.getText();
+            // Obtaining the values from the GUI
+            String name = addInmateName.getText();
+            String status = (String) estatusComboBox.getSelectedItem();
+            String crime = addfelonyDescr.getText();
 
-        // SQL sentence
-        String sql = "INSERT INTO inmate (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
+            // SQL sentence
+            String sql = "INSERT INTO inmate (name, born_date, entrance_date, exit_date, status, crime) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Stablishing the parameters of the query creating a PreparedStatement
-            stmt.setString(1, name);
-            stmt.setString(2, bornDate);
-            stmt.setString(3, entranceDate);
-            stmt.setString(4, exitDate);
-            stmt.setString(5, status);
-            stmt.setString(6, crime);
+            try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Stablishing the parameters of the query creating a PreparedStatement
+                stmt.setString(1, name);
+                stmt.setDate(2, new java.sql.Date(bornDate.getTime()));
+                stmt.setDate(3, new java.sql.Date(entranceDate.getTime()));
+                stmt.setDate(4, new java.sql.Date(exitDate.getTime()));
+                stmt.setString(5, status);
+                stmt.setString(6, crime);
 
-            // Ejecutar la consulta
-            int rowsAffected = stmt.executeUpdate();
+                // Executing de query
+                int rowsAffected = stmt.executeUpdate();
 
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Inmate inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(this, "Inmate inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to insert inmate", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                // Handling Exceptions
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error inserting into the database", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            //Handling Exceptions
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Wrong date format, use the dd/MM/yyyy format", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_submitInmateButtonInmateActionPerformed
 
