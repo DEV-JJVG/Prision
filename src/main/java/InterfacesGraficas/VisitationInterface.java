@@ -308,7 +308,7 @@ public class VisitationInterface extends javax.swing.JPanel {
             //Handling Exceptions
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al insertar en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error inserting into the database", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
