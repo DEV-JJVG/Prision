@@ -4,6 +4,7 @@
  */
 package izv.prision;
 
+import Exception.InvalityCapacityException;
 import Guardias.Guard;
 import Inmate.Inmate;
 import java.util.ArrayList;
@@ -22,17 +23,25 @@ public class Prison {
     protected ArrayList<Inmate> inmates;
     //the Integer represent the pay of the guard
     protected HashMap<Guard, Integer> guards;
-    protected ArrayList<String> regiones;
 
-    public Prison(String name, String location, int capacity, ArrayList<Inmate> Inmates, HashMap<Guard, Integer> Guards, ArrayList<String> regiones) {
+    public Prison(String name, String location, int capacity, ArrayList<Inmate> Inmates, HashMap<Guard, Integer> Guards) throws InvalityCapacityException {
         setName(name);
         setLocation(location);
-        setCapacity(capacity);
         setInmates(Inmates);
+        setCapacity(capacity);
         setGuards(Guards);
-        setRegiones(regiones);
     }
 
+    public Prison(int prisonID, String name, String location, int capacity, ArrayList<Inmate> inmates, HashMap<Guard, Integer> guards) throws InvalityCapacityException{
+        this.prisonID = prisonID;
+        setName(name);
+        setLocation(location);
+        setInmates(inmates);
+        setCapacity(capacity);
+        setGuards(guards);
+    }
+
+    
     //
     //
     //
@@ -60,10 +69,12 @@ public class Prison {
     public HashMap<Guard, Integer> getGuards() {
         return guards;
     }
-
-    public ArrayList<String> getRegiones() {
-        return regiones;
+    
+    public String getNameid(){
+        return getName() + ": " +  getPrisonID();
     }
+
+
 
     //
     //
@@ -87,14 +98,16 @@ public class Prison {
         }
     }
 
-    public void setCapacity(int capacity) {
-        if (capacity > 0) {
+    public void setCapacity(int capacity) throws InvalityCapacityException {
+        
+        if (inmates.size() < capacity) {
             this.capacity = capacity;
         } else {
-            this.capacity = 1;
+            throw new InvalityCapacityException();
         }
     }
 
+    //para el setter
     public void setInmates(ArrayList<Inmate> inmates) {
         this.inmates = inmates;
     }
@@ -103,14 +116,6 @@ public class Prison {
         this.guards = guards;
     }
 
-    public void setRegiones(ArrayList<String> regiones) {
-        for (String regione : regiones) {
-            if (regione.isBlank()) {
-                regiones.remove(regione);
-            }
-        }
-        this.regiones = regiones;
-    }
 
     //
     //
@@ -126,10 +131,8 @@ public class Prison {
     public String toString() {
         String phrase = "the Prison named " + getName() + " with the id " + getPrisonID() + " located in " + getLocation()
                 + ".\nIt has a capacity of " + getCapacity() + ", and it currently has " + getInmates().size()
-                + " Inmates and " + getGuards().size() + " guards and the areas of the prison are:";
-        for (String region : getRegiones()){
-            phrase = "\n" + region;
-        }
+                + " inmates and " + getGuards().size() + " guards";
+
         return phrase;
     }
 
