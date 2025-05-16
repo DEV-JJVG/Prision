@@ -78,7 +78,7 @@ public class Prision {
                     mainPrisonWork();
                     break;
                 case 2:
-                    userInterface();
+                    mainInterfaceMenu();
                     break;
                 case 3:
                     System.out.println("exiting program");
@@ -89,6 +89,42 @@ public class Prision {
             }
         }
 
+    }
+
+    public static void mainInterfaceMenu() {
+        boolean working = true;
+        int opcion;
+        while (working) {
+            System.out.println("=== Interface Selection Menu ===");
+            System.out.println("Please select an interface type:");
+            System.out.println("1. Guard");
+            System.out.println("2. Visitation");
+            System.out.println("3. Prison");
+            System.out.println("4. Inmate");
+            System.out.println("5. exit");
+            opcion = userInput();
+
+            switch (opcion) {
+                case 1:
+                    userInterface("Guard");
+                    break;
+                case 2:
+                    userInterface("Visitation");
+                    break;
+                case 3:
+                    userInterface("Prison");
+                    break;
+                case 4:
+                    userInterface("Inmate");
+                    break;
+                case 5:
+                    working = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a number from 1 to 5.");
+
+            }
+        }
     }
 
     public static void userInterface(String interfaceType) {
@@ -107,10 +143,22 @@ public class Prision {
                         frame.add(new VisitationInterface());
                         break;
                     case "Prison":
-                        frame.add(new PrisonInterface());
+                        //this and only this interface needs to be like this or it doesn´t work
+                        //I can only pray to the spirit of the machine so that it keeps working
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            public void run() {
+                                new PrisonInterface().setVisible(true);
+                            }
+                        });
                         break;
                     case "Inmate":
-                        frame.add(new InmateInterface());
+                        //this one also only work like this
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                new InmateInterface().setVisible(true);
+                            }
+                        });
                         break;
                     default:
                         throw new IllegalArgumentException("Unknown interface type: " + interfaceType);
@@ -232,11 +280,7 @@ public class Prision {
                 case 3:
                     //here i will just put the interface to add the inmates
 
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new InmateInterface().setVisible(true);
-                        }
-                    });
+                    userInterface("Inmate");
                     break;
 
                 case 4:
@@ -266,11 +310,7 @@ public class Prision {
                 case 5:
 
                     //here i just need to put the interface for visit
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new VisitationInterface().setVisible(true);
-                        }
-                    });
+                    userInterface("Visitation");
                     break;
 
                 case 6:
@@ -326,11 +366,8 @@ public class Prision {
                     break;
 
                 case 2:
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new GuardInterface().setVisible(true);
-                        }
-                    });
+                    //here I add the interface for adding guards
+                    userInterface("Guard");
                     break;
 
                 case 3:
@@ -449,7 +486,7 @@ public class Prision {
         int opcion;
         while (workning) {
             System.out.println("\n\n what would you like to do");
-            System.out.println("1. see the guards");
+            System.out.println("1. see the prisons");
             System.out.println("2. see the guards of 1 prison");
             System.out.println("3. see the inmates of 1 prison");
             System.out.println("4. change the number of inmates");
@@ -520,11 +557,7 @@ public class Prision {
                     break;
 
                 case 5:
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new PrisonInterface().setVisible(true);
-                        }
-                    });
+                    userInterface("Prison");
                     break;
 
                 case 6:

@@ -160,8 +160,9 @@ public class GuardInterface extends javax.swing.JPanel {
         // Obtaining the values from the Dates converted to Strings by parsing them
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
+        Date guard_bornDate = null;
         try {
-            Date guard_bornDate = dateFormat.parse(addGuardBornDate.getText());
+            guard_bornDate = dateFormat.parse(addGuardBornDate.getText());
         } catch (ParseException ex) {
             Logger.getLogger(GuardInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,7 +171,7 @@ public class GuardInterface extends javax.swing.JPanel {
         String guardPosition = (String) positionComboBox.getSelectedItem();
 
         // SQL sentence
-        String sql = "INSERT INTO guard (name, position) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO guard (name, position, born_date) VALUES (?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             // Stablishing the parameters of the query creating a PreparedStatement

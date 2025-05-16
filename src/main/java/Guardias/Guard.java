@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Hugo
  */
-public class Guard extends Person implements MandatoryTasks {
+public class Guard extends Person {
 
     public enum CARGO {
         director,

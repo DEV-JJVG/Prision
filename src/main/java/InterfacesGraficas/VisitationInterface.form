@@ -25,7 +25,6 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="addVisitationDate" min="-2" pref="186" max="-2" attributes="0"/>
                                   <Component id="addVisitorName" min="-2" pref="186" max="-2" attributes="0"/>
-                                  <Component id="addVisitorBornDate" alignment="1" min="-2" pref="186" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
                           </Group>
@@ -47,16 +46,10 @@
                           <Component id="addInmateId2" alignment="1" min="-2" pref="186" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="295" max="-2" attributes="0"/>
                       <Component id="addRelationship" min="-2" pref="186" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
-                      <Component id="visitorName" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="visitorRelationship" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
@@ -80,6 +73,11 @@
                       <EmptySpace min="-2" pref="209" max="-2" attributes="0"/>
                   </Group>
               </Group>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
+              <Component id="visitorRelationship" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,17 +110,11 @@
                       <Component id="addVisitorName" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="visitorRelationship" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="visitorName" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addRelationship" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="addVisitorBornDate" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Component id="visitorRelationship" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="addRelationship" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="submitVisitorButton" min="-2" pref="39" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
           </Group>
@@ -136,14 +128,6 @@
           <Font name="Segoe UI" size="36" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Visitor creation formulary"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="visitorName">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Visitor born date"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="addVisitationDate">
@@ -184,11 +168,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Visitor name"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="addVisitorBornDate">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addVisitorBornDateActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>

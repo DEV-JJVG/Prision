@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,14 +38,12 @@ public class VisitationInterface extends javax.swing.JPanel {
     private void initComponents() {
 
         visitorTitle = new javax.swing.JLabel();
-        visitorName = new javax.swing.JLabel();
         addVisitationDate = new javax.swing.JTextField();
         inmateId = new javax.swing.JLabel();
         addRelationship = new javax.swing.JTextField();
         visitationDate1 = new javax.swing.JLabel();
         addVisitorName = new javax.swing.JTextField();
         visitorName1 = new javax.swing.JLabel();
-        addVisitorBornDate = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         selectInmates = new javax.swing.JTextArea();
         searchInmateButton = new javax.swing.JButton();
@@ -53,9 +53,6 @@ public class VisitationInterface extends javax.swing.JPanel {
 
         visitorTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         visitorTitle.setText("Visitor creation formulary");
-
-        visitorName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        visitorName.setText("Visitor born date");
 
         addVisitationDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,12 +80,6 @@ public class VisitationInterface extends javax.swing.JPanel {
 
         visitorName1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         visitorName1.setText("Visitor name");
-
-        addVisitorBornDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addVisitorBornDateActionPerformed(evt);
-            }
-        });
 
         selectInmates.setColumns(20);
         selectInmates.setRows(5);
@@ -130,8 +121,7 @@ public class VisitationInterface extends javax.swing.JPanel {
                                 .addContainerGap(109, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(addVisitationDate, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addVisitorName, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addVisitorBornDate, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(addVisitorName, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(179, 179, 179))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(132, 132, 132)
@@ -145,15 +135,10 @@ public class VisitationInterface extends javax.swing.JPanel {
                                 .addComponent(searchInmateButton)
                                 .addGap(52, 52, 52))
                             .addComponent(addInmateId2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addRelationship, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(visitorName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(visitorRelationship)
-                        .addGap(25, 25, 25)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(295, 295, 295)
+                        .addComponent(addRelationship, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(167, 167, 167))
             .addGroup(layout.createSequentialGroup()
                 .addGap(131, 131, 131)
@@ -170,6 +155,10 @@ public class VisitationInterface extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(visitorTitle)
                         .addGap(209, 209, 209))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(321, 321, 321)
+                .addComponent(visitorRelationship)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,15 +184,11 @@ public class VisitationInterface extends javax.swing.JPanel {
                         .addComponent(visitorName1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addVisitorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(visitorRelationship)
-                    .addComponent(visitorName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addRelationship, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addVisitorBornDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                .addGap(42, 42, 42)
+                .addComponent(visitorRelationship)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addRelationship, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(submitVisitorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
@@ -220,10 +205,6 @@ public class VisitationInterface extends javax.swing.JPanel {
     private void addVisitorNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVisitorNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addVisitorNameActionPerformed
-
-    private void addVisitorBornDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVisitorBornDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addVisitorBornDateActionPerformed
     public static Connection connect() throws SQLException {
         //Realizing the connection to the database
         String url = "jdbc:mysql://localhost:3306/prision";
@@ -243,10 +224,10 @@ public class VisitationInterface extends javax.swing.JPanel {
 
             // Iterating between the results and showing it at the TextArea
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("inmate_ID");
                 String name = resultSet.getString("name");
                 String bornDate = resultSet.getString("born_date");
-                String entranceDate = resultSet.getString("entrance_date");
+                String entranceDate = resultSet.getString("inserction_date");
                 String exitDate = resultSet.getString("exit_date");
                 String status = resultSet.getString("status");
                 String crime = resultSet.getString("crime");
@@ -278,37 +259,43 @@ public class VisitationInterface extends javax.swing.JPanel {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
 
-        // Obtaining the values from the Dates converted to Strings
-        String visitor_bornDate = dateFormat.format(addVisitorBornDate.getText());
-        String visitationDate = dateFormat.format(addVisitationDate.getText());
+        try {
+            // Parsear las fechas desde los campos de texto
+            Date visitationDate = dateFormat.parse(addVisitationDate.getText());
 
-        // Obtaining the reamining values from the GUI
-        String visitorName = addVisitorName.getText();
-        String relationship = addRelationship.getText();
-        int inmate_ID = Integer.parseInt(addInmateId2.getText());
+            // Convertir java.util.Date a java.sql.Date
+            java.sql.Date sqlVisitationDate = new java.sql.Date(visitationDate.getTime());
 
-        // SQL query to insert the values from my GUI into my database
-        String sql = "INSERT INTO visitation (visitation_date, inmate_ID, visitor_name, relationship) VALUES (?, ?, ?, ?)";
+            // Obtener los valores restantes de la GUI
+            String visitorName = addVisitorName.getText();
+            String relationship = addRelationship.getText();
+            int inmate_ID = Integer.parseInt(addInmateId2.getText());
 
-        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-            // Establishing parameters from the query creating a PreparedStatement
-            stmt.setString(1, visitationDate);
-            stmt.setInt(2, inmate_ID);
-            stmt.setString(3, visitorName);
-            stmt.setString(4, relationship);
+            // Consulta SQL para insertar los valores de la GUI en la base de datos
+            String sql = "INSERT INTO visitation (visitation_date, inmate_ID, visitor_name, relationship) VALUES (?, ?, ?, ?)";
 
-            // Executing the query
-            int rowsAffected = stmt.executeUpdate();
+            try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                // Establecer los parámetros de la consulta
+                stmt.setDate(1, sqlVisitationDate);
+                stmt.setInt(2, inmate_ID);
+                stmt.setString(3, visitorName);
+                stmt.setString(4, relationship);
 
-            if (rowsAffected > 0) {
-                JOptionPane.showMessageDialog(this, "Prison inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to insert prison", "Error", JOptionPane.ERROR_MESSAGE);
+                // Ejecutar la consulta
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    JOptionPane.showMessageDialog(this, "Visitation inserted successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to insert visitation", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error inserting into the database", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            //Handling Exceptions
-        } catch (SQLException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error inserting into the database", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Invalid date format. Please use dd/MM/yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -352,7 +339,6 @@ public class VisitationInterface extends javax.swing.JPanel {
     private javax.swing.JTextField addInmateId2;
     private javax.swing.JTextField addRelationship;
     private javax.swing.JTextField addVisitationDate;
-    private javax.swing.JTextField addVisitorBornDate;
     private javax.swing.JTextField addVisitorName;
     private javax.swing.JLabel inmateId;
     private javax.swing.JScrollPane jScrollPane1;
@@ -360,7 +346,6 @@ public class VisitationInterface extends javax.swing.JPanel {
     private javax.swing.JTextArea selectInmates;
     private javax.swing.JButton submitVisitorButton;
     private javax.swing.JLabel visitationDate1;
-    private javax.swing.JLabel visitorName;
     private javax.swing.JLabel visitorName1;
     private javax.swing.JLabel visitorRelationship;
     private javax.swing.JLabel visitorTitle;
