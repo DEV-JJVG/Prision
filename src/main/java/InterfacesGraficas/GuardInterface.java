@@ -170,7 +170,7 @@ public class GuardInterface extends javax.swing.JPanel {
         String guardPosition = (String) positionComboBox.getSelectedItem();
 
         // SQL sentence
-        String sql = "INSERT INTO guard (name, position) VALUES (?, ?)";
+        String sql = "INSERT INTO guard (name, position) VALUES (?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             // Stablishing the parameters of the query creating a PreparedStatement
@@ -222,7 +222,7 @@ public class GuardInterface extends javax.swing.JPanel {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VisitationInterface().setVisible(true);
+                new GuardInterface().setVisible(true);
             }
         });
     }//GEN-LAST:event_submitGuardButtonActionPerformed
